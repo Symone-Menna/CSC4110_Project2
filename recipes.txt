@@ -1,0 +1,8 @@
+old fashioned, whiskey:2, bitters:0.1, sugar cube:1, orange twist:1
+margarita, tequila:2, cointreau:1, lime juice:1
+comso, vodka:1.5, cointreau:1, lime juice:0.5, cranberry juice:0.25
+negroni, gin:1, campari:1, sweet vermouth:1
+moscow mule, vodka:2, ginger beer:6, lime juice:0.5
+gin martini  gin:3, dry vermouth:0.5, olive:2
+vodka martini, vodka:3, dry vermouth:0.5, olive:2
+mojito, rum:2, lime juice:0.75, simple syrup:0.5
