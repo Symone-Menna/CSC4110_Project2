@@ -35,6 +35,7 @@ class Bar:
 
     # opens the json file and adds the value parameter to the json entry with the specified key pair
     def addInventory(self, key, value):
+        key.replace(" ","_")
         with open("inventory.json", 'r') as file:
             inventory = json.load(file)
         inventory[key] = inventory[key] + value
