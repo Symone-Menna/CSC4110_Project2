@@ -2,7 +2,8 @@
 
 from datetime import datetime
 import json
-import csv          
+import csv
+import re       
 
 class Bar:
     employee = ""
@@ -18,32 +19,39 @@ class Bar:
     #opens the json file and removes the quantity specified in recipe dictionary
     def removeInventory(self, recipe):
         inventory = {}
-        with open("/home/bryanh/CSC4110_Project2/BEAR/GP2/inventory.json", 'r') as file:
+        with open("inventory.json", 'r') as file:
             inventory = json.load(file)
         for i in recipe.keys():
             inventory[i] = round(inventory[i] - recipe[i], 2)
-        with open("/home/bryanh/CSC4110_Project2/BEAR/GP2/inventory.json", "w") as file:
+        with open("inventory.json", "w") as file:
             file.write(json.dumps(inventory, indent = 4))
+
+    def filterEntry(s):
+        filt = re.compile("[^a-zA-Z_ ]+")
+        if filt.search(s):
+            return False
+        else:
+            return True
 
     # opens the json file and adds the value parameter to the json entry with the specified key pair
     def addInventory(self, key, value):
-        with open("/home/bryanh/CSC4110_Project2/BEAR/GP2/inventory.json", 'r') as file:
+        with open("inventory.json", 'r') as file:
             inventory = json.load(file)
         inventory[key] = inventory[key] + value
-        with open("/home/bryanh/CSC4110_Project2/BEAR/GP2/inventory.json", "w") as file:
+        with open("inventory.json", "w") as file:
             file.write(json.dumps(inventory, indent = 4))
 
     # interacts with the csv file to track server, time, and order that was placed
-    def logOrder(self,drink):
-        with open('/home/bryanh/CSC4110_Project2/BEAR/GP2/barLog.csv', 'a', newline='') as file:
+    def logOrder(self,drink,drinkDict):
+        with open('barLog.csv', 'a', newline='') as file:
             writer_object = csv.writer(file)
-            writer_object.writerow([self.employee,datetime.now(),drink])
+            writer_object.writerow([self.employee,datetime.now(),drink,drinkDict])
             file.close()
 
     #checks the inventory and prints to the console with messages currently
     def checkInventory(self,recipe):
         inventory = {}
-        with open("/home/bryanh/CSC4110_Project2/BEAR/GP2/inventory.json", 'r') as file:
+        with open("inventory.json", 'r') as file:
             inventory = json.load(file)
         for i in recipe.keys():
             if inventory[i] < recipe[i]:
@@ -53,11 +61,10 @@ class Bar:
                 print("Low inventory, replenish soon")
         return True
 
-    # pass the name of the drink to the function as a string, and the Bar object dictionary with 
-    # the same key.
+    # pass the name of the drink to the function as a string, and the Bar object dictionary with the same key.
     def makeOrder(self,drink,drinkDict):
         if self.checkInventory(drinkDict):
-            self.logOrder(drink)
+            self.logOrder(drink,drinkDict)
             self.removeInventory(drinkDict)
             return True
         return False
