@@ -74,7 +74,7 @@ class Bar:
         if self.checkInventory(drinkDict):
             self.logOrder(drink,drinkDict)
             self.removeInventory(drinkDict)
-            print("order made")
+            print(drink + " order made")
             return True
         return False
 
@@ -115,7 +115,7 @@ def tkmain():
     def mainMenu():
         mainMenu = tk.Toplevel(root)
         mainMenu.title("Main Menu")
-        mainMenu.geometry("350x500")
+        mainMenu.geometry("300x300")
         mainMenu.maxsize(894, 670)
         mainMenu.minsize(350,500)
         mainMenu.iconbitmap("bearicon.ico")
@@ -126,16 +126,15 @@ def tkmain():
         canvas.create_image(0,0, image = bg, anchor = "nw")
 
         #add inventory button
-        adb = tk.Button(mainMenu, text = 'Add Inventory',command=addInventoryWindow, bd = '5',bg = "black", fg = "white").place(x=100,y=100)
+        adb = tk.Button(mainMenu, text = 'Add Inventory',command=addInventoryWindow, bd = '5',bg = "black", fg = "white").place(x=140,y=100)
 
         #Veiw Inventory button
-        qdb = tk.Button(mainMenu, text = 'Veiw Inventory',command=viewInventoryWindow, bd = '5',bg = "black", fg = "white").place(x=100,y=150)
+        qdb = tk.Button(mainMenu, text = 'Veiw Inventory',command=viewInventoryWindow, bd = '5',bg = "black", fg = "white").place(x=140,y=150)
 
         #Make drink button
-        ipb = tk.Button(mainMenu, text = 'Make Drink',command=makeDrinkWindow, bd = '5',bg = "black", fg = "white").place(x=100,y=200)
+        ipb = tk.Button(mainMenu, text = 'Make Drink',command=makeDrinkWindow, bd = '5',bg = "black", fg = "white").place(x=140,y=200)
 
-        #Veiw Transaction button
-        rdb = tk.Button(mainMenu, text = 'Veiw Transactions', bd = '5',bg = "black", fg = "white").place(x=100,y=250)
+
 
 
     #funtion for add inventory window
@@ -168,7 +167,7 @@ def tkmain():
         canvas.create_window(367,65, window=example)
         labelIngredient = tk.Label(addInventory, text="Ingredient",bg = "black", fg = "white")
         canvas.create_window(150,100, window=labelIngredient)
-        ingredientEx = tk.Label(addInventory, text="Pinappple juice",bg = "black", fg = "white")
+        ingredientEx = tk.Label(addInventory, text="whiskey",bg = "black", fg = "white")
         canvas.create_window(360,100, window=ingredientEx)
         labelQuantity = tk.Label(addInventory, text="Quantity",bg = "black", fg = "white")
         canvas.create_window(150,150, window=labelQuantity)
@@ -189,7 +188,7 @@ def tkmain():
          
 
         #submit button
-        submit = tk.Button(addInventory, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=250,y=450)
+        submit = tk.Button(addInventory, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=250,y=175)
         
     #function to search data
     def viewInventoryWindow():
@@ -219,10 +218,10 @@ def tkmain():
         fileValue = tk.StringVar()
         makeDrink = tk.Toplevel(root)
         makeDrink.title("Make Drink")
-        makeDrink.geometry("500x500")
+        makeDrink.geometry("550x500")
         makeDrink.maxsize(894, 670)
         makeDrink.minsize(350,500)
-        canvas = tk.Canvas(makeDrink, width = 500, height = 300)
+        canvas = tk.Canvas(makeDrink, width = 550, height = 300)
         canvas.pack(fill = "both", expand = True)
         makeDrink.iconbitmap("bearicon.ico")
 
@@ -231,34 +230,124 @@ def tkmain():
 
         #old fashioned image and resizing 
         of_dir = os.path.dirname(os.path.abspath(__file__))
-        of = Image.open(os.path.join(of_dir,"old_fashioned.jpg"))
-        ofResize = of.resize((80,80))
+        of = Image.open(os.path.join(of_dir,"img/old_fashioned.jpg"))
+        width,height = of.size
+        new_width = width//10
+        new_height = height//10
+        size = (new_width,new_height)
+        ofResize = of.resize((size))
         ofImage = ImageTk.PhotoImage(ofResize)
 
         #function to order oldfashioned
         def orderOF():
             barObj.makeOrder("old_fashioned",barObj.old_fashioned)
 
-        old_fashioned = tk.Button(makeDrink, image = ofImage, text = 'Old Fashioned', command= orderOF(),bd = '5').place(x=100,y=100)
-
-
-        margarita = tk.Button(makeDrink, text = 'Margarita', bd = '5',bg = "black", fg = "white").place(x=100,y=200)
-
-
-        cosmo = tk.Button(makeDrink, text = 'Cosmo', bd = '5',bg = "black", fg = "white").place(x=200,y=100)
-
-
-        negroni = tk.Button(makeDrink, text = 'Negroni', bd = '5',bg = "black", fg = "white").place(x=200,y=200)
-
-
-        moscow_mule = tk.Button(makeDrink, text = 'Moscow Mule',bd = '5',bg = "black", fg = "white").place(x=300,y=100)
-
-
-        martini = tk.Button(makeDrink, text = 'Martini', bd = '5',bg = "black", fg = "white").place(x=300,y=200)       
+        old_fash = tk.Button(makeDrink, image = ofImage, command= lambda:orderOF(),bd = '5')
+        old_fash.photo = ofImage
+        old_fash.place(x=50,y=50)
+        #old fashoned label
+        labelOF = tk.Label(makeDrink, text="Old Fashioned",bg = "black", fg = "white")
+        canvas.create_window(105,37, window=labelOF)
         
-        
-        mojito = tk.Button(makeDrink, text = 'Mojito', bd = '5',bg = "black", fg = "white").place(x=400,y=150)
+        #margarita image manipulation
+        mar_dir = os.path.dirname(os.path.abspath(__file__))
+        mar = Image.open(os.path.join(mar_dir,"img/margarita.jpg"))
+        marResize = mar.resize((size))
+        marImage = ImageTk.PhotoImage(marResize)
 
+        #function to order margarita
+        def orderMar():
+            barObj.makeOrder("margarita",barObj.margarita)
+
+        marg = tk.Button(makeDrink, image = marImage ,command=lambda:orderMar(), bd = '5')
+        marg.photo = marImage
+        marg.place(x=175,y=50)
+        labelMarg = tk.Label(makeDrink, text="Margarita",bg = "black", fg = "white")
+        canvas.create_window(230,37, window=labelMarg)
+
+        #cosmo image manipulation
+        cos_dir = os.path.dirname(os.path.abspath(__file__))
+        cos = Image.open(os.path.join(cos_dir,"img/cosmo.jpg"))
+        cosResize = cos.resize((size))
+        cosImage = ImageTk.PhotoImage(cosResize)
+
+        #function to order cosmo
+        def orderCosmo():
+            barObj.makeOrder("cosmo",barObj.cosmo)
+        
+        cosmo = tk.Button(makeDrink, image = cosImage,command=lambda:orderCosmo(), bd = '5')
+        cosmo.photo = cosImage
+        cosmo.place(x=300,y=50)
+        labelCosmo = tk.Label(makeDrink, text="Cosmopolitan",bg = "black", fg = "white")
+        canvas.create_window(355,37, window=labelCosmo)
+
+        #negroni image manipulation
+        neg_dir = os.path.dirname(os.path.abspath(__file__))
+        neg = Image.open(os.path.join(neg_dir,"img/negroni.jpg"))
+        negResize = neg.resize((size))
+        negImage = ImageTk.PhotoImage(negResize)
+
+        #function to order negroni
+        def orderNegroni():
+            barObj.makeOrder("negroni",barObj.negroni)
+
+        negroni = tk.Button(makeDrink, image = negImage,command=lambda:orderNegroni(), bd = '5')
+        negroni.photo = negImage
+        negroni.place(x=425,y=150)
+        #negroni label
+        labelNeg = tk.Label(makeDrink, text="Negroni",bg = "black", fg = "white")
+        canvas.create_window(475,137, window=labelNeg)
+
+        #moscow mule image manipulation
+        mule_dir = os.path.dirname(os.path.abspath(__file__))
+        neg = Image.open(os.path.join(mule_dir,"img/moscow_mule.jpg"))
+        muleResize = neg.resize((size))
+        muleImage = ImageTk.PhotoImage(muleResize)
+
+        #function to order negroni
+        def orderMoscowMule():
+            barObj.makeOrder("moscow_mule",barObj.moscow_mule)
+
+        moscow_mule = tk.Button(makeDrink,image=muleImage, command=lambda:orderMoscowMule(),bd = '5')
+        moscow_mule.photo = muleImage
+        moscow_mule.place(x=50,y=250)
+        #moscow mule label
+        labelMule = tk.Label(makeDrink, text="Moscow Mule",bg = "black", fg = "white")
+        canvas.create_window(105,237, window=labelMule)
+
+        #martini image manipulation
+        tini_dir = os.path.dirname(os.path.abspath(__file__))
+        neg = Image.open(os.path.join(tini_dir,"img/martini.jpg"))
+        tiniResize = neg.resize((size))
+        tiniImage = ImageTk.PhotoImage(tiniResize)
+
+        #function to order martini
+        def orderMartini():
+            barObj.makeOrder("martini",barObj.martini)
+
+        martini = tk.Button(makeDrink, image = tiniImage,command=lambda:orderMartini(), bd = '5')     
+        martini.photo = tiniImage
+        martini.place(x=175,y=250)
+        #martini label
+        labelTini = tk.Label(makeDrink, text="Martini",bg = "black", fg = "white")
+        canvas.create_window(230,237, window=labelTini)
+        
+        #mojito image manipulation
+        moj_dir = os.path.dirname(os.path.abspath(__file__))
+        moj = Image.open(os.path.join(moj_dir,"img/mojito.jpg"))
+        mojResize = moj.resize((size))
+        mojImage = ImageTk.PhotoImage(mojResize)
+
+        #function to order mojito
+        def orderMojito():
+            barObj.makeOrder("mojito",barObj.mojito)
+        
+        mojito = tk.Button(makeDrink, image=mojImage,command=lambda:orderMojito(), bd = '5')
+        mojito.photo = mojImage
+        mojito.place(x=300,y=250)
+        #mojito label
+        labelMoj = tk.Label(makeDrink, text="Mojito",bg = "black", fg = "white")
+        canvas.create_window(355,237, window=labelMoj)
 
         
 
@@ -269,25 +358,25 @@ def tkmain():
     def sOneLogOn():
         barObj.logOn("Bryan")
 
-    sOne = tk.Button(root, text = 'Server 1',command=lambda:[sOneLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=150,y=100)
+    sOne = tk.Button(root, text = 'Server 1',command=lambda:[sOneLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=150)
 
     #server two button
     def sTwoLogOn():
         barObj.logOn("Carson")
 
-    sTwo = tk.Button(root, text = 'Server 2',command=lambda:[sTwoLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=150,y=150)
+    sTwo = tk.Button(root, text = 'Server 2',command=lambda:[sTwoLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=200)
 
     #server three button
     def sThreeLogOn():
         barObj.logOn("Symone")
 
-    sThree = tk.Button(root, text = 'Server 3',command=lambda:[sThreeLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=150,y=200)
+    sThree = tk.Button(root, text = 'Server 3',command=lambda:[sThreeLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=250)
 
     #server four button
     def sFourLogOn():
         barObj.logOn("Timothy")
 
-    sFour = tk.Button(root, text = 'Server 4', command=lambda:[sFourLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=150,y=250)
+    sFour = tk.Button(root, text = 'Server 4', command=lambda:[sFourLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=300)
 
     tk.mainloop()
 
