@@ -1,6 +1,7 @@
 import pygame
 import math
 import random 
+import os
 
 #General intializer functions
 
@@ -18,6 +19,25 @@ bgHeight = bg.get_height()
 scroll = 0
 tiles = math.ceil((scrnWidth / bgWidth)) + 1
 
+# Class for the grumpy bee
+class grumpyBee(object):
+    def __init__(self):
+        self.img = []
+        for i in range(1,6):
+            self.img = pygame.image.load('grumpyBee/'+ str(i) + '.png').convert_alpha()
+            self.img = pygame.transform.scale(self.img,(50,50))
+            self.mask = pygame.mask.from_surface(self.img)
+            
+
+    def draw(self, win, scroll):
+        #grumpyBee
+        fly_height = 175
+        w, h = pygame.display.get_surface().get_size()
+        win.blit(self.img, (w + scroll*1.5,fly_height))
+
+grumpyBee = grumpyBee()
+
+
 # Class for the ground object
 class ground(object):
     def __init__(self):
@@ -33,7 +53,7 @@ class ground(object):
         repeat = math.ceil(w*2 / ground_width)+1
         num1 = 3
         num2 = 8
-        for i in range(repeat*2):
+        for i in range(repeat):
             if i != num1 and i != num2:
                 win.blit(self.ground, (ground_width*i + scroll,ground_height))
             #if i == repeat:
@@ -58,6 +78,7 @@ while run:
     for i in range(0, tiles):
         screen.blit(bg,(i* bgWidth + scroll,0))
     ground.draw(screen, scroll)
+    grumpyBee.draw(screen,scroll)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
