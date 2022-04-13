@@ -39,6 +39,7 @@ grumpyBee = grumpyBee()
 
 
 # Class for the ground object
+
 class ground(object):
     def __init__(self):
         self.ground = pygame.image.load("ground.png").convert_alpha()
@@ -54,15 +55,58 @@ class ground(object):
         num1 = 3
         num2 = 8
         for i in range(repeat):
-            if i != num1 and i != num2:
+            if i != num1 and i != num2 :
                 win.blit(self.ground, (ground_width*i + scroll,ground_height))
+            
             #if i == repeat:
                 #num1 = random.randrange(repeat)
                 #num2 = random.randrange(repeat)   
 
+#Works more like a hill then a platform
+class platform(object):
+    def __init__(self):
+        self.platform = pygame.image.load("ground.png").convert_alpha()
+        self.mask = pygame.mask.from_surface(self.platform)
+
+    def draw(self, win, scroll):
+        #ground
+        platform_height = 200
+        platform_width =  10
+        w, h = pygame.display.get_surface().get_size()
+
+        repeat = math.ceil(w*2 / platform_width)+1
+        num1 = 3
+        num2 = 8
+        for i in range(repeat):
+            if i != num1 and i != num2 :
+                win.blit(self.platform, (600*i + scroll,platform_height))
+                
+           
+
+class hole(object):
+    def __init__(self):
+        self.hole = pygame.image.load("hole.png").convert_alpha()
+        self.mask = pygame.mask.from_surface(self.hole)
+
+    def draw(self, win, scroll):
+       
+        hole_height = 250
+        hole_width =  10
+        w, h = pygame.display.get_surface().get_size()
+
+        repeat = math.ceil(w*2 / hole_width)+1
+        num1 = 3
+        num2 = 8
+        for i in range(repeat):
+            if i != num1 and i != num2 :
+                win.blit(self.hole, (600*i + scroll + 350,hole_height))
+
+
 
 #Game main 
 ground = ground()
+platform = platform()
+hole = hole()
 run = True
 while run:
 
@@ -78,6 +122,8 @@ while run:
     for i in range(0, tiles):
         screen.blit(bg,(i* bgWidth + scroll,0))
     ground.draw(screen, scroll)
+    platform.draw(screen, scroll)
+    hole.draw(screen,scroll)
     grumpyBee.draw(screen,scroll)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
