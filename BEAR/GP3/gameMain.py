@@ -101,12 +101,94 @@ class hole(object):
             if i != num1 and i != num2 :
                 win.blit(self.hole, (600*i + scroll + 350,hole_height))
 
+class Player(object):
 
+    run = [pygame.image.load('imgs/stand.png')]
+    jump = [pygame.image.load('imgs/jump.png')]
+    slide = [pygame.image.load('imgs/crouch.png')]
+    attack = [pygame.image.load('imgs/run1.png')]
+    fall = [pygame.image.load('imgs/fall.png')]
+    jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4]
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.jumping = False
+        self.sliding = False
+        self.attacking = False
+        self.falling = False
+        self.slideCount = 0
+        self.jumpCount = 0
+        self.runCount = 0
+        self.attackCount = 0
+        self.slideUp = False
+
+    def draw(self, win):
+
+        if self.falling:
+            win.blit(self.fall, (self.x, self.y + 30))
+        elif self.jumping:
+            self.y -= self.jumpList[self.jumpCount] * 1.2
+            win.blit(self.jump[self.jumpCount//128], (self.x,self.y)) #may need to increase
+            self.jumpCount += 1
+            if self.jumpCount > 108:
+                self.jumpCount = 0
+                self.jumping = False
+                self.runCount = 0
+            self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-10) #Default hitbox
+        elif self.sliding or self.slideUp:
+            if self.slideCount < 20:
+                self.y += 1
+                self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-10) #Sliding hitbox
+            elif self.slideCount == 80:
+                self.y -= 19
+                self.sliding = False
+                self.slideUp = True
+            elif self.slideCount > 20 and self.slideCount < 80: # NEW
+                self.hitbox = (self.x,self.y+3,self.width-8,self.height-35) # NEW
+            if self.slideCount >= 110:
+                self.slideCount = 0
+                self.slideUp = False
+                self.runCount = 0
+            win.blit(self.slide[self.slideCount//150], (self.x,self.y)) #may need to increase
+            self.slideCount += 1
+            
+        elif self.attacking:
+            win.blit(self.attack[self.attackCount//128], (self.x,self.y)) #may need to increase
+            self.attackCount += 1
+            if self.attackCount > 108:
+                self.attackCount = 0
+                self.attacking = False
+                
+
+        else:
+            if self.runCount > 42:
+                self.runCount = 0
+            win.blit(self.run[self.runCount//50], (self.x,self.y)) #may need to increase
+            self.runCount += 1
+            self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-13)
 
 #Game main 
+speed = 30
 ground = ground()
 platform = platform()
 hole = hole()
+
+
+
+def redrawWindow():
+    win.blit(bg,(bgX,0))
+    win.blit(bg,(bgX2,0))
+    bear.draw(win)
+    pygame.display.update()
+    
+    
+bear = Player(200,192,98,131)
+
+#Game main loop
+pygame.time.set_timer(USEREVENT + 1, 500)
+
 run = True
 while run:
 
@@ -121,13 +203,32 @@ while run:
 
     for i in range(0, tiles):
         screen.blit(bg,(i* bgWidth + scroll,0))
+    
     ground.draw(screen, scroll)
     platform.draw(screen, scroll)
     hole.draw(screen,scroll)
     grumpyBee.draw(screen,scroll)
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == USEREVENT + 1:
+            speed += 1
+            
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_SPACE] or keys[pygame.K_UP]: # If user hits space or up arrow key
+        if not(bear.jumping):  # If we are not already jumping
+            bear.jumping = True
+
+    if keys[pygame.K_DOWN]:  # If user hits down arrow key
+        if not(bear.sliding):  # If we are not already sliding
+            bear.sliding = True
+
+    if keys[pygame.K_r]:
+        if not(bear.attacking):
+            bear.attacking = True
+    
     pygame.display.update()
 
 
