@@ -15,6 +15,8 @@ pygame.display.set_caption("BEAR GP3")
 
 #Background stuff
 bg = pygame.image.load("forestBG.jpg")
+bgX = 0
+bgX2 = bg.get_width()
 bgWidth = bg.get_width()
 bgHeight = bg.get_height()
 scroll = 0
@@ -179,13 +181,13 @@ hole = hole()
 
 
 def redrawWindow():
-    win.blit(bg,(bgX,0))
-    win.blit(bg,(bgX2,0))
-    bear.draw(win)
+    screen.blit(bg,(bgX,0))
+    screen.blit(bg,(bgX2,0))
+    
     pygame.display.update()
     
     
-bear = Player(200,192,98,131)
+bear = Player(200,65,98,131)
 
 #Game main loop
 pygame.time.set_timer(USEREVENT + 1, 500)
@@ -193,8 +195,9 @@ pygame.time.set_timer(USEREVENT + 1, 500)
 run = True
 while run:
 
-
-    pygame.time.Clock().tick(60) #Set FPS
+    bear.draw(screen)
+    pygame.display.update()
+    pygame.time.Clock().tick(30) #Set FPS
 
     scroll -=3
     
