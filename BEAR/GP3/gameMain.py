@@ -2,6 +2,7 @@ import pygame
 import math
 import random 
 import os
+from pygame.locals import *
 
 #General intializer functions
 
