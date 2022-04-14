@@ -1,6 +1,7 @@
 import pygame
 import math
 import random 
+from random import randrange
 import os
 from pygame.locals import *
 
@@ -32,13 +33,24 @@ class grumpyBee(object):
             self.mask = pygame.mask.from_surface(self.img)
             
 
-    def draw(self, win, scroll):
+    def draw(self, win, scroll, fly_height):
         #grumpyBee
-        fly_height = 175
         w, h = pygame.display.get_surface().get_size()
         win.blit(self.img, (w + scroll*1.5,fly_height))
 
 grumpyBee = grumpyBee()
+
+#class for honey jar
+class honeyJar(object):
+
+    def __init__(self):
+        self.honeyJar = pygame.image.load("honeyJar.png")
+        self.honeyJar = pygame.transform.scale(self.honeyJar,(50,52))
+
+    def draw(self, win, scroll, fly_height):
+        #honey jar
+        w, h = pygame.display.get_surface().get_size()
+        win.blit(self.honeyJar, (w + scroll,fly_height))
 
 
 # Class for the ground object
@@ -177,6 +189,7 @@ speed = 30
 ground = ground()
 platform = platform()
 hole = hole()
+honeyJar = honeyJar()
 
 
 
@@ -196,8 +209,12 @@ run = True
 while run:
 
     bear.draw(screen)
+    if scroll ==0:
+        honeyJar_y_pos = randrange(0,200)
+        fly_height = randrange(0,200)
     pygame.display.update()
     pygame.time.Clock().tick(30) #Set FPS
+
 
     scroll -=3
     
@@ -211,7 +228,8 @@ while run:
     ground.draw(screen, scroll)
     platform.draw(screen, scroll)
     hole.draw(screen,scroll)
-    grumpyBee.draw(screen,scroll)
+    grumpyBee.draw(screen,scroll, fly_height)
+    honeyJar.draw(screen,scroll, honeyJar_y_pos)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
