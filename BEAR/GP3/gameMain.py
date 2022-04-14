@@ -103,11 +103,11 @@ class hole(object):
 
 class Player(object):
 
-    run = [pygame.image.load('imgs/stand.png')]
-    jump = [pygame.image.load('imgs/jump.png')]
-    slide = [pygame.image.load('imgs/crouch.png')]
-    attack = [pygame.image.load('imgs/run1.png')]
-    fall = [pygame.image.load('imgs/fall.png')]
+    run = [pygame.image.load('stand.png')]
+    jump = [pygame.image.load('jump.png')]
+    slide = [pygame.image.load('crouch.png')]
+    attack = [pygame.image.load('run1.png')]
+    fall = [pygame.image.load('fall.png')]
     jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4]
     def __init__(self, x, y, width, height):
         self.x = x
