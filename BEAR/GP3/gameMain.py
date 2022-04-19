@@ -180,7 +180,7 @@ def redrawWindow():
     pygame.display.update()
     
     
-bear = Player(200,65,98,131)
+bear = Player(200,155,98,131)
 
 #Game main loop
 pygame.time.set_timer(USEREVENT + 1, 500)
