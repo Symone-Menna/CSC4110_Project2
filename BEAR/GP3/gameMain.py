@@ -175,6 +175,8 @@ class Player(object):
             self.runCount += 1
             self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-13)
 
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2) #draw hitbox
+
 #Game main 
 speed = 30
 ground = ground()
