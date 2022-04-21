@@ -8,7 +8,7 @@ from pygame.locals import *
 #General intializer functions
 
 pygame.init()
-
+#constants
 scrnWidth = 594
 scrnHeight = 337
 screen = pygame.display.set_mode((scrnWidth, scrnHeight))
