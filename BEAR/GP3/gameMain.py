@@ -7,6 +7,8 @@ from pygame.locals import *
 
 #General intializer functions
 
+"""These are general initializer functions for the game, such as loading the screen width/height, the score, and the window title."""
+
 pygame.init()
 
 scrnWidth = 594
@@ -27,6 +29,12 @@ WHITE = (255,255,255)
 
 
 
+
+"""General notes: Each object on the screen usually consists of a constructor, a draw function (sets hitbox/size/texture), and a collision
+function to handle interactions with other objects on the screen."""
+
+
+"""This is the main class for the enemy. Deducts points upon collision with the player."""
 # Class for the grumpy bee
 class grumpyBee(object):
     def __init__(self,x,y,width,height):
@@ -53,6 +61,7 @@ class grumpyBee(object):
                 return True
         return False
        
+"""This is a secondary class for another enemy, which deducts more points than the standard enemy upon collision with the player."""
 class weirdBee(object):
     def __init__(self,x,y,width,height):
         self.img = pygame.image.load('weirdBee/2.png').convert_alpha()
@@ -79,6 +88,7 @@ class weirdBee(object):
 
 
 #class for honey jar
+"""The honey jar rewards the player by increasing their score"""
 class honeyJar(object):
 
     def __init__(self,x,y,width,height):
@@ -96,7 +106,7 @@ class honeyJar(object):
         win.blit(self.img, (self.x,self.y))
 
     def collide(self, rect):
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]: #Hitbox for collisions
             if rect[1] + rect[3] > self.hitbox[1]:
                 return True
         return False
@@ -104,7 +114,7 @@ class honeyJar(object):
 
 
 # Class for the ground object
-
+"""The ground is generated infinitely and is where the player starts from."""
 class ground(object):
     def __init__(self):
         self.ground = pygame.image.load("ground.png").convert_alpha()
@@ -154,9 +164,9 @@ class hole(object):
         return False
 
     
-
+"""This is the main player class, the bear character."""
 class Player(object):
-
+    #Load textures
     run = [pygame.image.load('stand.png')]
     jump = [pygame.image.load('jump.png')]
     slide = [pygame.image.load('crouch.png')]
@@ -178,8 +188,9 @@ class Player(object):
         self.attackCount = 0
         self.slideUp = False
 
-    def draw(self, win):
+    def draw(self, win): #Handle cases for various states
 
+        #These if/else statements handle texture and hitbox changes, based on what position/state the player is in.
         if self.falling:
             win.blit(self.fall, (self.x, self.y + 30))
         elif self.jumping:
@@ -199,17 +210,17 @@ class Player(object):
                 self.y -= 19
                 self.sliding = False
                 self.slideUp = True
-            elif self.slideCount > 20 and self.slideCount < 80: # NEW
-                self.hitbox = (self.x,self.y+3,self.width-8,self.height-50) # NEW
+            elif self.slideCount > 20 and self.slideCount < 80: 
+                self.hitbox = (self.x,self.y+3,self.width-8,self.height-50) 
             if self.slideCount >= 110:
                 self.slideCount = 0
                 self.slideUp = False
                 self.runCount = 0
-            win.blit(self.slide[self.slideCount//150], (self.x,self.y)) #may need to increase
+            win.blit(self.slide[self.slideCount//150], (self.x,self.y)) 
             self.slideCount += 1
             
         elif self.attacking:
-            win.blit(self.attack[self.attackCount//128], (self.x,self.y)) #may need to increase
+            win.blit(self.attack[self.attackCount//128], (self.x,self.y))
             self.attackCount += 1
             if self.attackCount > 108:
                 self.attackCount = 0
@@ -219,24 +230,24 @@ class Player(object):
         else:
             if self.runCount > 42:
                 self.runCount = 0
-            win.blit(self.run[self.runCount//50], (self.x,self.y)) #may need to increase
+            win.blit(self.run[self.runCount//50], (self.x,self.y)) 
             self.runCount += 1
             self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-13)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
 
-#Game main 
 speed = 30
-ground = ground()
+ground = ground() #Instantiate ground and holes
 hole = hole()
 
-bees = []
+bees = [] #Instantiate lists for enemy loops
 jars = []
 
 
 #score
+"""This function is used for updating the game screen with new objects."""
 score = 0
-def redrawWindow():
+def redrawWindow(): #Drawing enemies/honey jars
     global score
     for bee in bees:
         bee.x = bee.x - bee.vel
@@ -260,17 +271,19 @@ def redrawWindow():
     
 
     
-bear = Player(200,155,98,131)
+bear = Player(200,155,98,131) #Starting position of player
 
-#Game main loop
+
 pygame.time.set_timer(USEREVENT + 1, 500)
 pygame.time.set_timer(USEREVENT+2,1000)
 
 run = True
 
+#Game main loop
+"""This is the main game loop - this insantiates everything on the screen, the FPS, the pictures, the scrolling background, etc."""
 while run:
     redrawWindow()
-    bear.draw(screen)
+    bear.draw(screen) #Draw player on screen
 
     honeyJar_y_pos = randrange(0,scrnHeight - 119)
     fly_height = randrange(0,scrnHeight - 119)
@@ -283,7 +296,7 @@ while run:
     if abs(scroll) > bgWidth:
         scroll = 0
 
-
+    #Draw ground tiles
     for i in range(0, tiles):
         screen.blit(bg,(i* bgWidth + scroll,0))
     
@@ -293,6 +306,8 @@ while run:
     #grumpyBee.draw(screen,scroll, fly_height)
     #honeyJar.draw(screen,scroll, scrnHeight//2)
     
+    
+    #Deals with user events, such as key presses 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -317,7 +332,7 @@ while run:
         if not(bear.sliding):  # If we are not already sliding
             bear.sliding = True
 
-    if keys[pygame.K_r]:
+    if keys[pygame.K_r]: #Attack state (not used)
         if not(bear.attacking):
             bear.attacking = True
 
@@ -327,4 +342,4 @@ while run:
     pygame.display.update()
 
 
-pygame.QUIT
+pygame.QUIT #Game over
