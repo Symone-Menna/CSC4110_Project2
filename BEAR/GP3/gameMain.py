@@ -40,6 +40,13 @@ class grumpyBee(object):
         self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
+
+   
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
        
 class weirdBee(object):
     def __init__(self,x,y,width,height):
@@ -57,6 +64,12 @@ class weirdBee(object):
         self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
+
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
 
 
 
@@ -76,6 +89,12 @@ class honeyJar(object):
         self.hitbox = (self.x+10, self.y + 5, self.width - 20, self.height -5)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
+
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
         
 
 
@@ -123,6 +142,14 @@ class hole(object):
             if i != num1 and i != num2 :
                 win.blit(self.hole, (600*i + scroll + 350,hole_height))
 
+    def collide(self, rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[1]:
+                return True
+        return False
+
+    
+
 class Player(object):
 
     run = [pygame.image.load('stand.png')]
@@ -162,13 +189,13 @@ class Player(object):
         elif self.sliding or self.slideUp:
             if self.slideCount < 20:
                 self.y += 1
-                self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-10) #Sliding hitbox
+                self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-50) #Sliding hitbox
             elif self.slideCount == 80:
                 self.y -= 19
                 self.sliding = False
                 self.slideUp = True
             elif self.slideCount > 20 and self.slideCount < 80: # NEW
-                self.hitbox = (self.x,self.y+3,self.width-8,self.height-35) # NEW
+                self.hitbox = (self.x,self.y+3,self.width-8,self.height-50) # NEW
             if self.slideCount >= 110:
                 self.slideCount = 0
                 self.slideUp = False
@@ -190,6 +217,7 @@ class Player(object):
             win.blit(self.run[self.runCount//50], (self.x,self.y)) #may need to increase
             self.runCount += 1
             self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-13)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
 #Game main 
 speed = 30
@@ -207,11 +235,15 @@ def redrawWindow():
         if bee.x < bee.width * -1:
             bees.pop(bees.index(bee))
         bee.draw(screen)
+        #if bee.collide(bear.hitbox):
+            #pygame.quit()   #change!!!
     for jar in jars:
         jar.x = jar.x - jar.vel
         if jar.x < jar.width*-1:
             jars.pop(jars.index(jar))
         jar.draw(screen)
+        #if jar.collide(bear.hitbox):
+         #   pygame.quit()
 
     
 
