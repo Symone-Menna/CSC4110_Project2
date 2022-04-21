@@ -8,7 +8,7 @@ from pygame.locals import *
 #General intializer functions
 
 pygame.init()
-#constants
+
 scrnWidth = 594
 scrnHeight = 337
 screen = pygame.display.set_mode((scrnWidth, scrnHeight))
@@ -41,6 +41,22 @@ class grumpyBee(object):
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
        
+class weirdBee(object):
+    def __init__(self,x,y,width,height):
+        self.img = pygame.image.load('weirdBee/2.png').convert_alpha()
+        self.img = pygame.transform.scale(self.img,(50,50))
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.vel = 2   
+    
+            
+
+    def draw(self, win):
+        self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        win.blit(self.img, (self.x,self.y))
 
 
 
@@ -175,8 +191,6 @@ class Player(object):
             self.runCount += 1
             self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-13)
 
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2) #draw hitbox
-
 #Game main 
 speed = 30
 ground = ground()
@@ -206,15 +220,15 @@ bear = Player(200,155,98,131)
 
 #Game main loop
 pygame.time.set_timer(USEREVENT + 1, 500)
-pygame.time.set_timer(USEREVENT+2,5000)
+pygame.time.set_timer(USEREVENT+2,1000)
 
 run = True
 while run:
     redrawWindow()
     bear.draw(screen)
-    #if scroll ==0:
-     #   honeyJar_y_pos = randrange(0,200)
-      #  fly_height = randrange(0,200)
+
+    honeyJar_y_pos = randrange(0,scrnHeight - 119)
+    fly_height = randrange(0,scrnHeight - 119)
     pygame.display.update()
     pygame.time.Clock().tick(30) #Set FPS
 
@@ -240,11 +254,13 @@ while run:
         if event.type == USEREVENT + 1:
             speed += 1
         if event.type == USEREVENT+2:
-            r = random.randrange(0,2)
+            r = random.randrange(0,3)
             if r == 0:
-                bees.append(grumpyBee(scrnWidth, scrnHeight//2, 50, 50))
+                bees.append(grumpyBee(scrnWidth, fly_height, 50, 50))
             elif r == 1:
-                jars.append(honeyJar(scrnWidth, scrnHeight//4, 50, 52))
+                jars.append(honeyJar(scrnWidth, fly_height, 50, 52))
+            elif r == 2:
+                bees.append(weirdBee(scrnWidth, fly_height, 50,50))
             
     keys = pygame.key.get_pressed()
 
