@@ -22,6 +22,10 @@ bgWidth = bg.get_width()
 bgHeight = bg.get_height()
 tiles = math.ceil((scrnWidth / bgWidth)) + 1
 scroll = 0
+myfont = pygame.font.SysFont("Cascadia Mono Light", 40)
+WHITE = (255,255,255)
+
+
 
 # Class for the grumpy bee
 class grumpyBee(object):
@@ -33,6 +37,7 @@ class grumpyBee(object):
         self.width = width
         self.height = height
         self.vel = 5   
+        self.type = "grumpy"
     
             
 
@@ -57,7 +62,7 @@ class weirdBee(object):
         self.width = width
         self.height = height
         self.vel = 2   
-    
+        self.type = "weird"
             
 
     def draw(self, win):
@@ -219,6 +224,7 @@ class Player(object):
             self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-13)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
+
 #Game main 
 speed = 30
 ground = ground()
@@ -228,22 +234,28 @@ bees = []
 jars = []
 
 
-
+#score
+score = 0
 def redrawWindow():
+    global score
     for bee in bees:
         bee.x = bee.x - bee.vel
         if bee.x < bee.width * -1:
             bees.pop(bees.index(bee))
         bee.draw(screen)
-        #if bee.collide(bear.hitbox):
-            #pygame.quit()   #change!!!
+        if bee.collide(bear.hitbox):
+            if bee.type == "weird":
+                score = score - 10
+            elif bee.type == "grumpy":
+                score = score - 5
+
     for jar in jars:
         jar.x = jar.x - jar.vel
         if jar.x < jar.width*-1:
             jars.pop(jars.index(jar))
         jar.draw(screen)
-        #if jar.collide(bear.hitbox):
-         #   pygame.quit()
+        if jar.collide(bear.hitbox):
+            score = score + 15
 
     
 
@@ -255,6 +267,7 @@ pygame.time.set_timer(USEREVENT + 1, 500)
 pygame.time.set_timer(USEREVENT+2,1000)
 
 run = True
+
 while run:
     redrawWindow()
     bear.draw(screen)
@@ -307,6 +320,9 @@ while run:
     if keys[pygame.K_r]:
         if not(bear.attacking):
             bear.attacking = True
+
+    text = myfont.render("Score {0}".format(score), 1, WHITE)
+    screen.blit(text, (240,10))
     
     pygame.display.update()
 
