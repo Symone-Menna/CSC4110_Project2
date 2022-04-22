@@ -223,6 +223,38 @@ class Player(object):
             self.hitboxRect = pygame.Rect(self.hitbox)
         if hitboxFlag:
             pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+          
+#end screen function
+def endScreen(win):
+    global score,bestScore,scrnWidth,scrnHeight
+    #load image
+    es = pygame.image.load("Bear-ly Captured.jpg")
+    es = pygame.transform.scale(es,(scrnWidth,scrnHeight))
+    mask = pygame.mask.from_surface(es)
+    #image variables
+    w = 670
+    h = 500
+    #reset variables 
+    speed = 30
+
+    #new game loop
+    run = True
+    while run:
+        pygame.time.delay(100)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                run = False
+                bear.falling = False
+                bear.jumping = False
+                bear.slideing = False
+        win.blit(es, (0,0))
+        largeFont = pygame.font.SysFont('Cascadia Mono Light', 60)
+        currentScore = largeFont.render("Score: " + str(score),1,WHITE)
+        win.blit(currentScore, (scrnWidth/2 - currentScore.get_width()/2,150))
+        pygame.display.update()
 
 
 speed = 30
@@ -235,6 +267,9 @@ jars = []
 #score
 """This function is used for updating the game screen with new objects."""
 score = 0
+bestScore = 0
+def redrawWindow():
+    global score, bestScore
 def redrawWindow(): #Drawing enemies/honey jars
     global score
     for bee in bees:
