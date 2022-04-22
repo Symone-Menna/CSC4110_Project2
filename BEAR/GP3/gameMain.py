@@ -7,8 +7,11 @@ from pygame.locals import *
 
 #General intializer functions
 
-pygame.init()
+"""These are general initializer functions for the game, such as loading the screen width/height, the score, and the window title."""
 
+pygame.init()
+ #Settings
+hitboxFlag = True
 scrnWidth = 594
 scrnHeight = 337
 screen = pygame.display.set_mode((scrnWidth, scrnHeight))
@@ -27,6 +30,12 @@ WHITE = (255,255,255)
 
 
 
+
+"""General notes: Each object on the screen usually consists of a constructor, a draw function (sets hitbox/size/texture), and a collision
+function to handle interactions with other objects on the screen."""
+
+
+"""This is the main class for the enemy. Deducts points upon collision with the player."""
 # Class for the grumpy bee
 class grumpyBee(object):
     def __init__(self,x,y,width,height):
@@ -43,16 +52,11 @@ class grumpyBee(object):
 
     def draw(self, win):
         self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
+        self.hitboxRect = pygame.Rect(self.hitbox)
         pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
-
-   
-    def collide(self, rect):
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
-            if rect[1] + rect[3] > self.hitbox[1]:
-                return True
-        return False
        
+"""This is a secondary class for another enemy, which deducts more points than the standard enemy upon collision with the player."""
 class weirdBee(object):
     def __init__(self,x,y,width,height):
         self.img = pygame.image.load('weirdBee/2.png').convert_alpha()
@@ -67,18 +71,14 @@ class weirdBee(object):
 
     def draw(self, win):
         self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        self.hitboxRect = pygame.Rect(self.hitbox)
+        if hitboxFlag:
+            pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
-
-    def collide(self, rect):
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
-            if rect[1] + rect[3] > self.hitbox[1]:
-                return True
-        return False
-
 
 
 #class for honey jar
+"""The honey jar rewards the player by increasing their score"""
 class honeyJar(object):
 
     def __init__(self,x,y,width,height):
@@ -91,20 +91,34 @@ class honeyJar(object):
         self.vel = 3
 
     def draw(self, win):
-        self.hitbox = (self.x+10, self.y + 5, self.width - 20, self.height -10)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        self.hitbox = (self.x+10, self.y + 5, self.width - 20, self.height -5)
+        self.hitboxRect = pygame.Rect(self.hitbox)
+        if hitboxFlag:
+            pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
 
-    def collide(self, rect):
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
-            if rect[1] + rect[3] > self.hitbox[1]:
-                return True
-        return False
-        
+class hornedBee(object):
+    def __init__(self,x,y,width,height):
+        self.img = pygame.image.load('hornedBee/sprite2.png').convert_alpha()
+        self.img = pygame.transform.scale(self.img,(50,50))
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.vel = 9  
+        self.type = "horned"
+            
+
+    def draw(self, win):
+        self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
+        self.hitboxRect = pygame.Rect(self.hitbox)
+        if hitboxFlag:
+            pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        win.blit(self.img, (self.x,self.y))
 
 
 # Class for the ground object
-
+"""The ground is generated infinitely and is where the player starts from."""
 class ground(object):
     def __init__(self):
         self.ground = pygame.image.load("ground.png").convert_alpha()
@@ -120,48 +134,28 @@ class ground(object):
         num1 = 3
         num2 = 8
         for i in range(repeat):
-            if i != num1 and i != num2 :
-                win.blit(self.ground, (ground_width*i + scroll,ground_height))
+            win.blit(self.ground, (ground_width*i + scroll,ground_height))
             
             #if i == repeat:
                 #num1 = random.randrange(repeat)
                 #num2 = random.randrange(repeat)   
 
      
-
-class hole(object):
-    def __init__(self):
-        self.hole = pygame.image.load("hole.png").convert_alpha()
-        self.mask = pygame.mask.from_surface(self.hole)
-
-    def draw(self, win, scroll):
-       
-        hole_height = 290
-        hole_width =  10
-        w, h = pygame.display.get_surface().get_size()
-
-        repeat = math.ceil(w*2 / hole_width)+1
-        num1 = 3
-        num2 = 8
-        for i in range(repeat):
-            if i != num1 and i != num2 :
-                win.blit(self.hole, (600*i + scroll + 350,hole_height))
-
-    def collide(self, rect):
-        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
-            if rect[1] + rect[3] > self.hitbox[1]:
-                return True
-        return False
-
     
-
+"""This is the main player class, the bear character."""
 class Player(object):
-
+    #Load textures
     run = [pygame.image.load('stand.png')]
     jump = [pygame.image.load('jump.png')]
     slide = [pygame.image.load('crouch.png')]
     attack = [pygame.image.load('run1.png')]
     fall = [pygame.image.load('fall.png')]
+    run[0] = pygame.transform.scale(run[0],(75,100))
+    jump[0] = pygame.transform.scale(jump[0],(75,100))
+    slide[0] = pygame.transform.scale(slide[0],(75,100))
+    attack[0] = pygame.transform.scale(attack[0],(75,100))
+    fall[0] = pygame.transform.scale(fall[0],(75,100))
+
     jumpList = [1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4]
     def __init__(self, x, y, width, height):
         self.x = x
@@ -178,8 +172,9 @@ class Player(object):
         self.attackCount = 0
         self.slideUp = False
 
-    def draw(self, win):
+    def draw(self, win): #Handle cases for various states
 
+        #These if/else statements handle texture and hitbox changes, based on what position/state the player is in.
         if self.falling:
             win.blit(self.fall, (self.x, self.y + 30))
         elif self.jumping:
@@ -191,25 +186,28 @@ class Player(object):
                 self.jumping = False
                 self.runCount = 0
             self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-10) #Default hitbox
+            self.hitboxRect = pygame.Rect(self.hitbox)
         elif self.sliding or self.slideUp:
             if self.slideCount < 20:
                 self.y += 1
-                self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-50) #Sliding hitbox
+                self.hitbox = (self.x+ 4,self.y+40,self.width-30,self.height-50) #Sliding hitbox
+                self.hitboxRect = pygame.Rect(self.hitbox)
             elif self.slideCount == 80:
                 self.y -= 19
                 self.sliding = False
                 self.slideUp = True
-            elif self.slideCount > 20 and self.slideCount < 80: # NEW
-                self.hitbox = (self.x,self.y+3,self.width-8,self.height-50) # NEW
+            elif self.slideCount > 20 and self.slideCount < 80: 
+                self.hitbox = (self.x,self.y+40,self.width-8,self.height-50)
+                self.hitboxRect = pygame.Rect(self.hitbox)
             if self.slideCount >= 110:
                 self.slideCount = 0
                 self.slideUp = False
                 self.runCount = 0
-            win.blit(self.slide[self.slideCount//150], (self.x,self.y)) #may need to increase
+            win.blit(self.slide[self.slideCount//150], (self.x,self.y)) 
             self.slideCount += 1
             
         elif self.attacking:
-            win.blit(self.attack[self.attackCount//128], (self.x,self.y)) #may need to increase
+            win.blit(self.attack[self.attackCount//128], (self.x,self.y))
             self.attackCount += 1
             if self.attackCount > 108:
                 self.attackCount = 0
@@ -219,100 +217,68 @@ class Player(object):
         else:
             if self.runCount > 42:
                 self.runCount = 0
-            win.blit(self.run[self.runCount//50], (self.x,self.y)) #may need to increase
+            win.blit(self.run[self.runCount//50], (self.x,self.y)) 
             self.runCount += 1
             self.hitbox = (self.x+ 4,self.y,self.width-24,self.height-13)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+            self.hitboxRect = pygame.Rect(self.hitbox)
+        if hitboxFlag:
+            pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
 
 
-
-#end screen function
-def endScreen(win):
-    global score,bestScore,scrnWidth,scrnHeight
-    #load image
-    es = pygame.image.load("Bear-ly Captured.jpg")
-    es = pygame.transform.scale(es,(scrnWidth,scrnHeight))
-    mask = pygame.mask.from_surface(es)
-    #image variables
-    w = 670
-    h = 500
-    #reset variables 
-    speed = 30
-
-    #new game loop
-    run = True
-    while run:
-        pygame.time.delay(100)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                pygame.quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                run = False
-                bear.falling = False
-                bear.jumping = False
-                bear.slideing = False
-        win.blit(es, (0,0))
-        largeFont = pygame.font.SysFont('Cascadia Mono Light', 60)
-        currentScore = largeFont.render("Score: " + str(score),1,WHITE)
-        win.blit(currentScore, (scrnWidth/2 - currentScore.get_width()/2,150))
-        pygame.display.update()
-
-
-#Game main 
 speed = 30
-ground = ground()
-hole = hole()
+ground = ground() #Instantiate ground and holes
 
-bees = []
+bees = [] #Instantiate lists for enemy loops
 jars = []
 
 
 #score
+"""This function is used for updating the game screen with new objects."""
 score = 0
-bestScore = 0
-def redrawWindow():
-    global score, bestScore
+def redrawWindow(): #Drawing enemies/honey jars
+    global score
     for bee in bees:
         bee.x = bee.x - bee.vel
         if bee.x < bee.width * -1:
             bees.pop(bees.index(bee))
         bee.draw(screen)
-        if bee.collide(bear.hitbox):
+        collide = bee.hitboxRect.colliderect(bear.hitboxRect)
+        if collide:
             if bee.type == "weird":
                 score = score - 10
             elif bee.type == "grumpy":
                 score = score - 5
-                
-        
+            elif bee.type == "horned":
+                score = score - 2
+            bees.pop(bees.index(bee))
 
     for jar in jars:
         jar.x = jar.x - jar.vel
         if jar.x < jar.width*-1:
             jars.pop(jars.index(jar))
         jar.draw(screen)
-        if jar.collide(bear.hitbox):
+        collide = jar.hitboxRect.colliderect(bear.hitboxRect)
+        if collide:
             score = score + 15
-
-   
-    
+            jars.pop(jars.index(jar))
 
     
 
     
-bear = Player(200,155,98,131)
+bear = Player(150,175,90,100) #Starting position of player
 
-#Game main loop
+
 pygame.time.set_timer(USEREVENT + 1, 500)
-pygame.time.set_timer(USEREVENT + 2, 1000)
-pygame.time.set_timer(USEREVENT + 3 ,60000)
-
+pygame.time.set_timer(USEREVENT+2,randrange(2000,3500))
+pygame.time.set_timer(USEREVENT+3,randrange(1000,1750))
 
 run = True
 
+#Game main loop
+"""This is the main game loop - this insantiates everything on the screen, the FPS, the pictures, the scrolling background, etc."""
 while run:
     redrawWindow()
-    bear.draw(screen)
+    bear.draw(screen) #Draw player on screen
 
     honeyJar_y_pos = randrange(0,scrnHeight - 119)
     fly_height = randrange(0,scrnHeight - 119)
@@ -325,16 +291,17 @@ while run:
     if abs(scroll) > bgWidth:
         scroll = 0
 
-
+    #Draw ground tiles
     for i in range(0, tiles):
         screen.blit(bg,(i* bgWidth + scroll,0))
     
     ground.draw(screen, scroll)
    
-    hole.draw(screen,scroll)
     #grumpyBee.draw(screen,scroll, fly_height)
     #honeyJar.draw(screen,scroll, scrnHeight//2)
     
+    
+    #Deals with user events, such as key presses 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -345,11 +312,11 @@ while run:
             if r == 0:
                 bees.append(grumpyBee(scrnWidth, fly_height, 50, 50))
             elif r == 1:
-                jars.append(honeyJar(scrnWidth, fly_height, 50, 52))
-            elif r == 2:
                 bees.append(weirdBee(scrnWidth, fly_height, 50,50))
-        if event.type == USEREVENT + 3:
-            endScreen(screen)
+            elif r == 2:
+                bees.append(hornedBee(scrnWidth, fly_height,35,35))
+        if event.type == USEREVENT+3:
+                jars.append(honeyJar(scrnWidth, fly_height, 50, 52))
             
     keys = pygame.key.get_pressed()
 
@@ -361,7 +328,7 @@ while run:
         if not(bear.sliding):  # If we are not already sliding
             bear.sliding = True
 
-    if keys[pygame.K_r]:
+    if keys[pygame.K_r]: #Attack state (not used)
         if not(bear.attacking):
             bear.attacking = True
 
@@ -371,4 +338,4 @@ while run:
     pygame.display.update()
 
 
-pygame.QUIT
+pygame.QUIT #Game over
