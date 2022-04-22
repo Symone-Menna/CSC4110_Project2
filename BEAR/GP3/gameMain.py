@@ -11,7 +11,7 @@ from pygame.locals import *
 
 pygame.init()
  #Settings
-hitboxFlag = True
+hitboxFlag = False #For debugging/hitboxes
 scrnWidth = 594
 scrnHeight = 337
 screen = pygame.display.set_mode((scrnWidth, scrnHeight))
@@ -53,7 +53,8 @@ class grumpyBee(object):
     def draw(self, win):
         self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
         self.hitboxRect = pygame.Rect(self.hitbox)
-        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        if hitboxFlag:
+            pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
         win.blit(self.img, (self.x,self.y))
        
 """This is a secondary class for another enemy, which deducts more points than the standard enemy upon collision with the player."""
@@ -224,6 +225,8 @@ class Player(object):
         if hitboxFlag:
             pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
           
+"""This screen appears at the end of the game, after a minute has elapsed. Displays score."""
+
 #end screen function
 def endScreen(win):
     global score,bestScore,scrnWidth,scrnHeight
