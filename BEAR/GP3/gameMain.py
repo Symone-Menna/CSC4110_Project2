@@ -309,6 +309,7 @@ bear = Player(150,175,90,100) #Starting position of player
 pygame.time.set_timer(USEREVENT + 1, 500)
 pygame.time.set_timer(USEREVENT+2,randrange(2000,3500))
 pygame.time.set_timer(USEREVENT+3,randrange(1000,1750))
+pygame.time.set_timer(USEREVENT + 4, 60000)
 
 run = True
 
@@ -354,7 +355,9 @@ while run:
             elif r == 2:
                 bees.append(hornedBee(scrnWidth, fly_height,35,35))
         if event.type == USEREVENT+3:
-                jars.append(honeyJar(scrnWidth, fly_height, 50, 52))
+            jars.append(honeyJar(scrnWidth, fly_height, 50, 52))
+        if event.type == USEREVENT+4:
+            endScreen()
             
     keys = pygame.key.get_pressed()
 
