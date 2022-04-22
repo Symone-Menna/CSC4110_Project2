@@ -15,10 +15,10 @@ hitboxFlag = False #For debugging/hitboxes
 scrnWidth = 594
 scrnHeight = 337
 screen = pygame.display.set_mode((scrnWidth, scrnHeight))
-pygame.display.set_caption("BEAR GP3")
+pygame.display.set_caption("BEAR-ly Captured")
 
 #Background stuff
-bg = pygame.image.load("forestBG.jpg")
+bg = pygame.image.load("img/forestBG.jpg")
 bgX = 0
 bgX2 = bg.get_width()
 bgWidth = bg.get_width()
@@ -39,7 +39,7 @@ function to handle interactions with other objects on the screen."""
 # Class for the grumpy bee
 class grumpyBee(object):
     def __init__(self,x,y,width,height):
-        self.img = pygame.image.load('grumpyBee/1.png').convert_alpha()
+        self.img = pygame.image.load('img/grumpyBee/1.png').convert_alpha()
         self.img = pygame.transform.scale(self.img,(50,50))
         self.x = x
         self.y = y
@@ -60,7 +60,7 @@ class grumpyBee(object):
 """This is a secondary class for another enemy, which deducts more points than the standard enemy upon collision with the player."""
 class weirdBee(object):
     def __init__(self,x,y,width,height):
-        self.img = pygame.image.load('weirdBee/2.png').convert_alpha()
+        self.img = pygame.image.load('img/weirdBee/2.png').convert_alpha()
         self.img = pygame.transform.scale(self.img,(50,50))
         self.x = x
         self.y = y
@@ -83,7 +83,7 @@ class weirdBee(object):
 class honeyJar(object):
 
     def __init__(self,x,y,width,height):
-        self.img = pygame.image.load("honeyJar.png")
+        self.img = pygame.image.load("img/honeyJar.png")
         self.img = pygame.transform.scale(self.img,(50,52))
         self.x = x
         self.y = y
@@ -100,7 +100,7 @@ class honeyJar(object):
 
 class hornedBee(object):
     def __init__(self,x,y,width,height):
-        self.img = pygame.image.load('hornedBee/sprite2.png').convert_alpha()
+        self.img = pygame.image.load('img/hornedBee/sprite2.png').convert_alpha()
         self.img = pygame.transform.scale(self.img,(50,50))
         self.x = x
         self.y = y
@@ -122,7 +122,7 @@ class hornedBee(object):
 """The ground is generated infinitely and is where the player starts from."""
 class ground(object):
     def __init__(self):
-        self.ground = pygame.image.load("ground.png").convert_alpha()
+        self.ground = pygame.image.load("img/ground.png").convert_alpha()
         self.mask = pygame.mask.from_surface(self.ground)
 
     def draw(self, win, scroll):
@@ -146,11 +146,11 @@ class ground(object):
 """This is the main player class, the bear character."""
 class Player(object):
     #Load textures
-    run = [pygame.image.load('stand.png')]
-    jump = [pygame.image.load('jump.png')]
-    slide = [pygame.image.load('crouch.png')]
-    attack = [pygame.image.load('run1.png')]
-    fall = [pygame.image.load('fall.png')]
+    run = [pygame.image.load('img/stand.png')]
+    jump = [pygame.image.load('img/jump.png')]
+    slide = [pygame.image.load('img/crouch.png')]
+    attack = [pygame.image.load('img/run1.png')]
+    fall = [pygame.image.load('img/fall.png')]
     run[0] = pygame.transform.scale(run[0],(75,100))
     jump[0] = pygame.transform.scale(jump[0],(75,100))
     slide[0] = pygame.transform.scale(slide[0],(75,100))
@@ -231,7 +231,7 @@ class Player(object):
 def endScreen(win):
     global score,bestScore,scrnWidth,scrnHeight
     #load image
-    es = pygame.image.load("Bear-ly Captured.jpg")
+    es = pygame.image.load("img/Bear-ly Captured.jpg")
     es = pygame.transform.scale(es,(scrnWidth,scrnHeight))
     mask = pygame.mask.from_surface(es)
     #image variables
