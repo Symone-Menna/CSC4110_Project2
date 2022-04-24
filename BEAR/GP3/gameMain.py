@@ -231,7 +231,7 @@ class Player(object):
 def endScreen(win):
     global score,bestScore,scrnWidth,scrnHeight
     #load image
-    es = pygame.image.load("img/Bear-ly Captured.jpg")
+    es = pygame.image.load("Bear-ly Captured.jpg")
     es = pygame.transform.scale(es,(scrnWidth,scrnHeight))
     mask = pygame.mask.from_surface(es)
     #image variables
