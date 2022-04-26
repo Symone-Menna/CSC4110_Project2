@@ -9,6 +9,7 @@ import PIL
 from PIL import Image
 from PIL import ImageTk
 import tkinter as tk
+from tkinter import ttk
 
 
 class Bar:
@@ -95,6 +96,8 @@ def tkmain():
 
     #create tkinter window
     root = tk.Tk()
+    root.tk.call("source", "azure.tcl")
+    root.tk.call("set_theme", "dark")
 
     #open window dimention
     root.geometry('350x500')
@@ -107,7 +110,7 @@ def tkmain():
     bg = tk.PhotoImage(file="background.png")
     canvasRoot = tk.Canvas(root, width = 500, heigh = 500)
     canvasRoot.pack(fill = "both", expand = True)
-    canvasRoot.create_image(0,0, image = bg, anchor = "nw")
+    #canvasRoot.create_image(0,0, image = bg, anchor = "nw")
     
 
         
@@ -123,16 +126,27 @@ def tkmain():
         #photo background
         canvas = tk.Canvas(mainMenu, width = 600, height = 500)
         canvas.pack(fill = "both", expand = True)
-        canvas.create_image(0,0, image = bg, anchor = "nw")
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
 
         #add inventory button
-        adb = tk.Button(mainMenu, text = 'Add Inventory',command=addInventoryWindow, bd = '5',bg = "black", fg = "white").place(x=140,y=100)
+        adb = ttk.Button(mainMenu,text="Add Inventory", command = addInventoryWindow, style="Accent.TButton").place(x=120, y=150)
 
         #Veiw Inventory button
-        qdb = tk.Button(mainMenu, text = 'Veiw Inventory',command=viewInventoryWindow, bd = '5',bg = "black", fg = "white").place(x=140,y=150)
+        qdb = ttk.Button(mainMenu,text="View Inventory", command = viewInventoryWindow, style="Accent.TButton").place(x=120, y=200)
 
         #Make drink button
-        ipb = tk.Button(mainMenu, text = 'Make Drink',command=makeDrinkWindow, bd = '5',bg = "black", fg = "white").place(x=140,y=200)
+        mdb = ttk.Button(mainMenu,text="Make Drink", command = makeDrinkWindow, style="Accent.TButton").place(x=125, y=250)
+
+        titleLabel = ttk.Label(
+            mainMenu,
+            text="Welcome",
+            justify="center",
+            font=("-size", 15, "-weight", "bold"),
+        )
+        titleLabel.place(x=125, y=100)
+
+        leave = ttk.Button(mainMenu,text="Exit", command=Close)
+        leave.place(x=125,y=400)
 
 
 
@@ -149,15 +163,15 @@ def tkmain():
         #photo background
         canvas = tk.Canvas(addInventory, width = 600, height = 500)
         canvas.pack(fill = "both", expand = True)
-        canvas.create_image(0,0, image = bg, anchor = "nw")
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
 
         ingredientVal = tk.StringVar()
         quantityVal = tk.StringVar()
        
 
         #create entry boxes
-        ingredient = tk.Entry(addInventory, textvariable = ingredientVal)
-        quantity = tk.Entry(addInventory, textvariable = quantityVal)
+        ingredient = ttk.Entry(addInventory, textvariable = ingredientVal)
+        quantity = ttk.Entry(addInventory, textvariable = quantityVal)
         
         canvas.create_window(250,100, window=ingredient)
         canvas.create_window(250,150, window=quantity)
@@ -166,11 +180,11 @@ def tkmain():
         example = tk.Label(addInventory, text="Example Format",bg = "black", fg = "white")
         canvas.create_window(367,65, window=example)
         labelIngredient = tk.Label(addInventory, text="Ingredient",bg = "black", fg = "white")
-        canvas.create_window(150,100, window=labelIngredient)
+        canvas.create_window(130,100, window=labelIngredient)
         ingredientEx = tk.Label(addInventory, text="whiskey",bg = "black", fg = "white")
         canvas.create_window(360,100, window=ingredientEx)
         labelQuantity = tk.Label(addInventory, text="Quantity",bg = "black", fg = "white")
-        canvas.create_window(150,150, window=labelQuantity)
+        canvas.create_window(130,150, window=labelQuantity)
         quantityEx = tk.Label(addInventory, text="oz",bg = "black", fg = "white")
         canvas.create_window(350,150, window=quantityEx)
         
@@ -188,7 +202,7 @@ def tkmain():
          
 
         #submit button
-        submit = tk.Button(addInventory, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=250,y=175)
+        submit = ttk.Button(addInventory, text = 'Submit', command=submit, style="Accent.TButton").place(x=250,y=175)
         
     #function to search data
     def viewInventoryWindow():
@@ -202,15 +216,15 @@ def tkmain():
         viewInventory.iconbitmap("bearicon.ico")
 
         #photo background
-        canvas.create_image(0,0, image = bg, anchor = "nw")
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
 
 
         #create entry box with labels
-        labelView = tk.Label(viewInventory, text="Click to veiw inventory",bg = "black", fg = "white")
+        labelView = tk.Label(viewInventory, text="Click to view inventory",bg = "black", fg = "white")
         canvas.create_window(180,100, window=labelView)
       
         #submit button
-        submit = tk.Button(viewInventory, text = 'view inventory',bd = '5',bg = "black", fg = "white").place(x=130,y=150)
+        submit = ttk.Button(viewInventory, text = 'View inventory',style="Accent.TButton").place(x=130,y=150)
           
         
     #import data window
@@ -226,7 +240,7 @@ def tkmain():
         makeDrink.iconbitmap("bearicon.ico")
 
         #photo background
-        canvas.create_image(0,0, image = bg, anchor = "nw")
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
 
         #old fashioned image and resizing 
         of_dir = os.path.dirname(os.path.abspath(__file__))
@@ -372,7 +386,7 @@ def tkmain():
      #Function to Get Input of Password from server
     def PasswordLogin(name):
         dataEntry = tk.Toplevel(root)
-        dataEntry.title("Add Data")
+        dataEntry.title("Enter password")
         dataEntry.geometry("400x100")
         dataEntry.maxsize(894, 670)
         dataEntry.minsize(350,500)
@@ -383,14 +397,14 @@ def tkmain():
         dataEntry.iconbitmap("bearicon.ico")
 
         #For photo Background
-        canvas.create_image(0,0, image = bg, anchor = "nw")
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
         
 
         passwordValue = tk.StringVar()
-        password = tk.Entry(dataEntry, textvariable = passwordValue)
+        password = ttk.Entry(dataEntry, textvariable = passwordValue)
         canvas.create_window(250,100, window=password)
-        labelPassword = tk.Label(dataEntry, text="Password",bg = "black", fg = "white")
-        canvas.create_window(150,100, window=labelPassword)
+        labelPassword = tk.Label(dataEntry, text="Password", bg = "black", fg = "white")
+        canvas.create_window(130,100, window=labelPassword)
         
         strPassword = passwordValue.get()
         def submit():
@@ -399,36 +413,68 @@ def tkmain():
             passwordValue.set("")
 
       
-        submit = tk.Button(dataEntry, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=200,y=175)
+        submit = ttk.Button(dataEntry, text = 'Submit', command=submit,style="Accent.TButton").place(x=200,y=175)
 
-
+    
     #server one button
     def sOneLogOn():
         barObj.logOn("Bryan")
         
     
-    sOne = tk.Button(root, text = 'Server 1',command=lambda:[PasswordLogin("Bryan")], bd = '5',bg = "black", fg = "white").place(x=140,y=150)
+    sOne = ttk.Button(text="Server 1", command=lambda:[PasswordLogin("Bryan")], style="Accent.TButton")
+    sOne.place(x=125,y=150)
 
     #server two button
     def sTwoLogOn():
         barObj.logOn("Carson")
         
 
-    sTwo = tk.Button(root, text = 'Server 2',command=lambda:[PasswordLogin("Carson")], bd = '5',bg = "black", fg = "white").place(x=140,y=200)
+    sTwo = ttk.Button(text="Server 2", command=lambda:[PasswordLogin("Carson")], style="Accent.TButton")
+    sTwo.place(x=125,y=200)
 
     #server three button
     def sThreeLogOn():
         barObj.logOn("Symone")
         
 
-    sThree = tk.Button(root, text = 'Server 3',command=lambda:[PasswordLogin("Symone")], bd = '5',bg = "black", fg = "white").place(x=140,y=250)
+    sThree = ttk.Button(text="Server 3", command=lambda:[PasswordLogin("Symone")], style="Accent.TButton")
+    sThree.place(x=125,y=250)
 
     #server four button
     def sFourLogOn():
         barObj.logOn("Timothy")
         
 
-    sFour = tk.Button(root, text = 'Server 4', command=lambda:[PasswordLogin("Timothy")], bd = '5',bg = "black", fg = "white").place(x=140,y=300)
+    sFour = ttk.Button(text="Server 4", command=lambda:[PasswordLogin("Timothy")], style="Accent.TButton")
+    sFour.place(x=125,y=300)
+
+    #Server Login Label
+    
+    loginLabel = ttk.Label(
+            
+            text="Server Login",
+            justify="center",
+            font=("-size", 15, "-weight", "bold"),
+        )
+    
+    loginLabel.place(x=110, y =100)
+
+    #For exit button
+    def Close():
+        root.destroy()
+
+    #Exit button
+    leave = ttk.Button(text="Exit", command=Close)
+    leave.place(x=125,y=400)
+
+    #Title Label
+    titleLabel = ttk.Label(
+            
+            text="BEAR-LY Sober Bartender",
+            justify="center",
+            font=("-size", 10, "-weight", "bold"),
+        )
+    titleLabel.place(x=95, y=50)
 
     tk.mainloop()
 
