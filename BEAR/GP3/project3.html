@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>BEAR Software Project 3</title>
+    <title>Bear-ly Captured</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,7 +22,7 @@
     &ensp;
     <a href = "../GP2/project2.html" class = "button">BEAR-ly Sober Bartender</a>
     &ensp;
-    <a href = "../GP3/project3.html" class = "button">Project 3</a>
+    <a href = "../GP3/project3.html" class = "button">Bear-ly Captured</a>
     &ensp;
     <a href = "../GP4/project4.html" class = "button">Project 4</a>
 </header>
@@ -30,10 +30,103 @@
 <body>
  
 
-    <!-- ======= Hero Section ======= -->
-    <main id="hero">
-        <p>Third Project Coming Soon.</p>
+     <!-- ======= Hero Section ======= -->
+     <main id="hero">
+        <div class = column1>  
+            <img src="Bear-ly Captured.jpg" loading="lazy">
+             </div>  
+        <div class = column>
+           <div class="container col-xxl-8 px-4 py-5">
+
+
+            <!--Introduction to the program-->
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                
+                    <h1>An intro to BEAR-ly Captured</h1>
+                  
+            </div>
+
+            <div class="col-lg-6">  
+                <p class="lead"> Welcome to our video game Bear-ly Captured a simple 90s theme side scroller game. This game is short and fast-paced allowing for rapid replayability as you try and get the top score possible for the level. 
+                </p>
+
+                <!--Instructions on how to use the program-->
+                <p> Instructions:</p>
+                <p>Once clicking on the Start Program button a Terms and Conditions page will pop up. Upon agreeing to the terms and conditions the program will start. This program jumps right into the action so be prepared. You play Rowan, an old army bear making his way through the woods who is trying to collect honey pots on his way home. In his trek through the forest he has to avoid angry, lazy, and horned bees to make it through the woods safely. You help Rowan by controlling his movement through the forest by using the arrow keys on your computer. Yes, Rowan can fly due to the result of government experiments performed on him during his service. Honey pots increase your score hitting the bees will decrease your score various amounts depending on the species of bee that is hit. Your goal is to get as high of a score as possible in 1 minute. Good luck and have fun. 
+                </p>    
+                
+            
+                <button class = "button" id = "myBtn">Start Program</button>
+
+                <!--User Legal Agreement-->
+                <div class = "modal" id = "myModal">
+                    <div class = "modal-content">
+                    <span class = "close"> &times; </span>
+                   
+                        <h1>User Legal Agreement</h1>
+                        <p>
+                            BEAR Software Group will not share any data provided by the client to any
+                            third party. Data will only be used for analysis and improvement of 
+                            BEAR Software Group's products.
+                            
+                            BEAR Software Group does not permit the sale or reproduction of any 
+                            applications.
+                            
+                            BEAR Software group does not permit the use of any applications by anyone
+                            other than the registered user. 
+                            
+                            The user may not sell or distribute data without the express written consent 
+                            of BEAR Software Group.
+                            
+                            Bear Software Group will not be held legally or otherwise responsible or
+                            liable for any data breaches, zero-day attacks, database worms, or any 
+                            other malicious attack that compromises the users data security.
+
+                            This game has not been rated, although this game does not contain any graphic or explicit scenes and therefore should be suitable for most audiences.
+                            
+                            BEAR Software Group takes great care in insuring user's data security.
+                            BEAR Software Group performs regular vulnerability assessments, and requires
+                            the same from all key vendors and contibutors. 
+                            
+                            BEAR Software Group is constantly changing its approach to security as the
+                            security landscape is rapidly evolving. Every effort is made to stay on the
+                            cutting edge of data security.
+                         </p>
+
+                            <a href = "project3.html"><button class = "button"> I Disagree to the Terms and Conditions specified above </button></a>
+                            <p> </p>
+
+                            <a href = "Compiled File.zip"><button class = "button">I Agree to the Terms and Conditions specified above</button></a>
+                    </div>
+                </div>
+        </div>
+                  
+               </div> 
+
+                </div>
     </main>
+
+
+    <!--Script for Modal-->
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function(){
+            modal.style.display = "block";
+        }
+        span.onclick = function(){
+            modal.style.display = "none";
+        }
+        window.onclick = function(event){
+            if(event.target == modal){
+                modal.style.display = "none";
+            }
+        }
+    
+
+    </script>
 
 
     <!-- Bootstrap JS -->
