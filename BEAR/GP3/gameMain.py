@@ -20,37 +20,80 @@ bgX = 0
 bgX2 = bg.get_width()
 bgWidth = bg.get_width()
 bgHeight = bg.get_height()
-scroll = 0
 tiles = math.ceil((scrnWidth / bgWidth)) + 1
+scroll = 0
 
 # Class for the grumpy bee
 class grumpyBee(object):
-    def __init__(self):
-        self.img = []
-        for i in range(1,6):
-            self.img = pygame.image.load('grumpyBee/'+ str(i) + '.png').convert_alpha()
-            self.img = pygame.transform.scale(self.img,(50,50))
-            self.mask = pygame.mask.from_surface(self.img)
+    def __init__(self,x,y,width,height):
+        self.img = pygame.image.load('grumpyBee/1.png').convert_alpha()
+        self.img = pygame.transform.scale(self.img,(50,50))
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.vel = 3.5   
+    
             
 
-    def draw(self, win, scroll, fly_height):
-        #grumpyBee
-        w, h = pygame.display.get_surface().get_size()
-        win.blit(self.img, (w + scroll*1.5,fly_height))
+    def draw(self, win):
+        self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        win.blit(self.img, (self.x,self.y))
+       
+class weirdBee(object):
+    def __init__(self,x,y,width,height):
+        self.img = pygame.image.load('weirdBee/2.png').convert_alpha()
+        self.img = pygame.transform.scale(self.img,(50,50))
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.vel = 2   
+    
+            
 
-grumpyBee = grumpyBee()
+    def draw(self, win):
+        self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        win.blit(self.img, (self.x,self.y))
+
+class hornedBee(object):
+    def __init__(self,x,y,width,height):
+        self.img = pygame.image.load('hornedBee/sprite1.png').convert_alpha()
+        self.img = pygame.transform.scale(self.img,(50,50))
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.vel = 5   
+    
+            
+
+    def draw(self, win):
+        self.hitbox = (self.x + 10, self.y + 5, self.width - 20, self. height -5)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        win.blit(self.img, (self.x,self.y))
+
+
 
 #class for honey jar
 class honeyJar(object):
 
-    def __init__(self):
-        self.honeyJar = pygame.image.load("honeyJar.png")
-        self.honeyJar = pygame.transform.scale(self.honeyJar,(50,52))
+    def __init__(self,x,y,width,height):
+        self.img = pygame.image.load("honeyJar.png")
+        self.img = pygame.transform.scale(self.img,(50,52))
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.vel = 3
 
-    def draw(self, win, scroll, fly_height):
-        #honey jar
-        w, h = pygame.display.get_surface().get_size()
-        win.blit(self.honeyJar, (w + scroll,fly_height))
+    def draw(self, win):
+        self.hitbox = (self.x+10, self.y + 5, self.width - 20, self.height -5)
+        pygame.draw.rect(win, (255,0,0), self.hitbox, 2)
+        win.blit(self.img, (self.x,self.y))
+        
 
 
 # Class for the ground object
@@ -169,34 +212,45 @@ class Player(object):
 speed = 30
 ground = ground()
 hole = hole()
-honeyJar = honeyJar()
+
+bees = []
+jars = []
 
 
 
 def redrawWindow():
-    screen.blit(bg,(bgX,0))
-    screen.blit(bg,(bgX2,0))
+    for bee in bees:
+        bee.x = bee.x - bee.vel
+        if bee.x < bee.width * -1:
+            bees.pop(bees.index(bee))
+        bee.draw(screen)
+    for jar in jars:
+        jar.x = jar.x - jar.vel
+        if jar.x < jar.width*-1:
+            jars.pop(jars.index(jar))
+        jar.draw(screen)
+
     
-    pygame.display.update()
-    
+
     
 bear = Player(200,155,98,131)
 
 #Game main loop
 pygame.time.set_timer(USEREVENT + 1, 500)
+pygame.time.set_timer(USEREVENT+2,randrange(2000,5000))
 
 run = True
 while run:
-
+    redrawWindow()
     bear.draw(screen)
-    if scroll ==0:
-        honeyJar_y_pos = randrange(0,200)
-        fly_height = randrange(0,200)
+
+    honeyJar_y_pos = randrange(0,scrnHeight - 119)
+    fly_height = randrange(0,scrnHeight - 119)
     pygame.display.update()
     pygame.time.Clock().tick(30) #Set FPS
 
 
-    scroll -=3
+    scroll -=5
     
     if abs(scroll) > bgWidth:
         scroll = 0
@@ -208,14 +262,22 @@ while run:
     ground.draw(screen, scroll)
    
     hole.draw(screen,scroll)
-    grumpyBee.draw(screen,scroll, fly_height)
-    honeyJar.draw(screen,scroll, honeyJar_y_pos)
+    #grumpyBee.draw(screen,scroll, fly_height)
+    #honeyJar.draw(screen,scroll, scrnHeight//2)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
         if event.type == USEREVENT + 1:
             speed += 1
+        if event.type == USEREVENT+2:
+            r = random.randrange(0,3)
+            if r == 0:
+                bees.append(grumpyBee(scrnWidth, fly_height, 50, 50))
+            elif r == 1:
+                bees.append(hornedBee(scrnWidth, fly_height, 50, 52))
+            elif r == 2:
+                bees.append(weirdBee(scrnWidth, fly_height, 50,50))
             
     keys = pygame.key.get_pressed()
 
