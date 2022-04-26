@@ -349,34 +349,86 @@ def tkmain():
         labelMoj = tk.Label(makeDrink, text="Mojito",bg = "black", fg = "white")
         canvas.create_window(355,237, window=labelMoj)
 
+    #Function to Check if password is correct
+    def checkPassword(strPassword, name):
+        if strPassword == "JlAK7r%2Xvjb":
+            mainMenu()
+
+            #Checks who the server is
+            if name == "Bryan":
+                sOneLogOn()
+            elif name == "Carson":
+                sTwoLogOn()
+            elif name == "Symone":
+                sThreeLogOn()
+            elif name == "Timothy":
+                sFourLogOn()
+            
+             
+        else:
+            print("Incorrect Password Entered.")
+
+
+     #Function to Get Input of Password from server
+    def PasswordLogin(name):
+        dataEntry = tk.Toplevel(root)
+        dataEntry.title("Add Data")
+        dataEntry.geometry("400x100")
+        dataEntry.maxsize(894, 670)
+        dataEntry.minsize(350,500)
+        canvas = tk.Canvas(dataEntry, width = 500, height = 200)
+        canvas.pack(fill = "both", expand = True)
+
+        #Brings in icon at the top
+        dataEntry.iconbitmap("bearicon.ico")
+
+        #For photo Background
+        canvas.create_image(0,0, image = bg, anchor = "nw")
         
 
+        passwordValue = tk.StringVar()
+        password = tk.Entry(dataEntry, textvariable = passwordValue)
+        canvas.create_window(250,100, window=password)
+        labelPassword = tk.Label(dataEntry, text="Password",bg = "black", fg = "white")
+        canvas.create_window(150,100, window=labelPassword)
+        
+        strPassword = passwordValue.get()
+        def submit():
+            strPassword = passwordValue.get()
+            checkPassword(strPassword, name) 
+            passwordValue.set("")
 
+      
+        submit = tk.Button(dataEntry, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=200,y=175)
 
 
     #server one button
     def sOneLogOn():
         barObj.logOn("Bryan")
-
-    sOne = tk.Button(root, text = 'Server 1',command=lambda:[sOneLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=150)
+        
+    
+    sOne = tk.Button(root, text = 'Server 1',command=lambda:[PasswordLogin("Bryan")], bd = '5',bg = "black", fg = "white").place(x=140,y=150)
 
     #server two button
     def sTwoLogOn():
         barObj.logOn("Carson")
+        
 
-    sTwo = tk.Button(root, text = 'Server 2',command=lambda:[sTwoLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=200)
+    sTwo = tk.Button(root, text = 'Server 2',command=lambda:[PasswordLogin("Carson")], bd = '5',bg = "black", fg = "white").place(x=140,y=200)
 
     #server three button
     def sThreeLogOn():
         barObj.logOn("Symone")
+        
 
-    sThree = tk.Button(root, text = 'Server 3',command=lambda:[sThreeLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=250)
+    sThree = tk.Button(root, text = 'Server 3',command=lambda:[PasswordLogin("Symone")], bd = '5',bg = "black", fg = "white").place(x=140,y=250)
 
     #server four button
     def sFourLogOn():
         barObj.logOn("Timothy")
+        
 
-    sFour = tk.Button(root, text = 'Server 4', command=lambda:[sFourLogOn(), mainMenu()], bd = '5',bg = "black", fg = "white").place(x=140,y=300)
+    sFour = tk.Button(root, text = 'Server 4', command=lambda:[PasswordLogin("Timothy")], bd = '5',bg = "black", fg = "white").place(x=140,y=300)
 
     tk.mainloop()
 
