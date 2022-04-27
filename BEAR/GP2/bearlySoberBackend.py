@@ -56,6 +56,13 @@ class Bar:
             writer_object.writerow([self.employee,datetime.now(),drink,drinkDict])
             file.close()
 
+    def printInventory(self):
+        with open("inventory.json", 'r') as file:
+            inventory = json.load(file)
+        keys = dict.keys(inventory)
+        for item in keys:
+            print(str(item) + ":" + str(inventory[item]))
+
     #checks the inventory and prints to the console with messages currently
     def checkInventory(self,recipe):
         inventory = {}
@@ -208,9 +215,12 @@ def tkmain():
         #create entry box with labels
         labelView = tk.Label(viewInventory, text="Click to veiw inventory",bg = "black", fg = "white")
         canvas.create_window(180,100, window=labelView)
+
+        def submit():
+            barObj.printInventory()
       
         #submit button
-        submit = tk.Button(viewInventory, text = 'view inventory',bd = '5',bg = "black", fg = "white").place(x=130,y=150)
+        submit = tk.Button(viewInventory, text = 'view inventory', command = submit, bd = '5',bg = "black", fg = "white").place(x=130,y=150)
           
         
     #import data window
