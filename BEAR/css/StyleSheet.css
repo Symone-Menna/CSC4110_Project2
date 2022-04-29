@@ -27,8 +27,16 @@ font-family : monospace
     margin:6em 5em 4em 4em;
 }
 
-
 .column1 img[src*="Bear-ly Captured.jpg"]
+{
+    box-sizing: border-box;
+    text-align:center;
+    width:33%;
+    float:right;
+    margin:6em 5em 4em 4em;
+}
+
+.column1 img[src*="drinks2.jpg"]
 {
     box-sizing: border-box;
     text-align:center;
