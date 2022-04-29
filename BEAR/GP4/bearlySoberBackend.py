@@ -57,6 +57,13 @@ class Bar:
             writer_object.writerow([self.employee,datetime.now(),drink,drinkDict])
             file.close()
 
+    def printInventory(self):
+        with open("inventory.json", 'r') as file:
+            inventory = json.load(file)
+        keys = dict.keys(inventory)
+        for item in keys:
+            print(str(item) + ":" + str(inventory[item]))
+
     #checks the inventory and prints to the console with messages currently
     def checkInventory(self,recipe):
         inventory = {}
@@ -222,9 +229,14 @@ def tkmain():
         #create entry box with labels
         labelView = tk.Label(viewInventory, text="Click to view inventory",bg = "black", fg = "white")
         canvas.create_window(180,100, window=labelView)
+
+        def submit():
+            barObj.printInventory()
       
         #submit button
-        submit = ttk.Button(viewInventory, text = 'View inventory',style="Accent.TButton").place(x=130,y=150)
+        submit = ttk.Button(viewInventory, text = 'View inventory',style="Accent.TButton", command=submit).place(x=130,y=150)
+        
+        
           
         
     #import data window
@@ -367,7 +379,7 @@ def tkmain():
     def checkPassword(strPassword, name):
         if strPassword == "JlAK7r%2Xvjb":
             mainMenu()
-
+            
             #Checks who the server is
             if name == "Bryan":
                 sOneLogOn()
@@ -411,8 +423,9 @@ def tkmain():
             strPassword = passwordValue.get()
             checkPassword(strPassword, name) 
             passwordValue.set("")
+            dataEntry.destroy() #Closes password entry window after login
 
-      
+        
         submit = ttk.Button(dataEntry, text = 'Submit', command=submit,style="Accent.TButton").place(x=200,y=175)
 
     
