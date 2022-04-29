@@ -22,9 +22,9 @@
     &ensp;
     <a href = "../GP2/project2.html" class = "button">BEAR-ly Sober Bartender</a>
     &ensp;
-    <a href = "../GP3/project3.html" class = "button">Bear-ly Captured</a>
+    <a href = "../GP3/project3.html" class = "button">BEAR-ly Captured</a>
     &ensp;
-    <a href = "../GP4/project4.html" class = "button">Project 4</a>
+    <a href = "../GP4/project4.html" class = "button">BEAR-ly Sober Bartender V2</a>
 </header>
 
 <body>
@@ -32,7 +32,119 @@
 
     <!-- ======= Hero Section ======= -->
     <main id="hero">
-        <p>Fourth Project Coming Soon.</p>
+        <div class = column1>  
+            <img src="img/drinks2.jpg" loading="lazy">
+             </div>  
+        <div class = column>
+           <div class="container col-xxl-8 px-4 py-5">
+
+
+            <!--Introduction to the program-->
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                
+                    <h1>An intro to BEAR-ly Sober Bartender V2</h1>
+                  
+            </div>
+
+            <div class="col-lg-6">  
+                <p class="lead"> Keeping up with stock and orders for any establishment can be difficult. Our easy to use program, BEAR-ly Sober Bartender, takes the guess work out of what your stock is and allows for both your staff and customers to have a quick and easy expercience of ordering a drink and subtracting it from your stock. This software is an expansion on Bear-ly Sober Bartender released earlier this year this software includes some new features that will make the experience smoother and more secure for your company.
+                </p>
+
+                <!--Highlighting of some of the new features implemented-->
+                <p>New Features</p>
+                <p>
+                    <ul>
+                        <li>An updated modern look for the software, we decided the 90s were no longer in fashion.</li>
+
+                        <li>An increased menu to offer more variety to your customers.</li>
+
+                        <li>A login password to keep pesky customers out of your inventory.</li>
+
+                        <li>We also fixed the view inventory page so now you will be able to view what you have in stock before being sent a low stock message.</li>
+
+                    </ul>
+                
+                </p>
+
+                <!--Instructions on how to use the program-->
+                <p> Instructions:</p>
+                <p>Once clicking on the Start Program button a Terms and Conditions page will pop up. Upon agreeing to the terms and conditions the program will start. There will be four options upon opening the program: Server 1, Server 2, Server 3, and Server 4. Upon clicking any of the servers you will be redirected to the login page. This page will require the server to put in the password that was provided to you in a .txt file when you downloaded the software. Upon entering the correct password the server will be redirected to the main menu which contains the add inventory, view inventory and make drink buttons. 
+                <br><br>Upon clicking the add inventory button. There will be a prompt to add the name of the ingredient and the quantity of the ingredient to be added. Example format is provided next to the ingredients and the quantity entered is in oz. Once the user enters the information they can click submit to add it to the inventory.
+                <br><br> Upon clicking the View inventory button the user will have another page upon which prompts them to view inventory.
+                <br><br> Upon clicking the Make drink option a menu with pictures of seven drinks will show up with their names written above them. The user will simply click one of these pictures to order a drink.
+                <p>
+                
+                <button class = "button" id = "myBtn">Start Program</button>
+
+                <!--User Legal Agreement-->
+                <div class = "modal" id = "myModal">
+                    <div class = "modal-content">
+                    <span class = "close"> &times; </span>
+                   
+                        <h1>User Legal Agreement</h1>
+                        <p>
+                            BEAR Software Group will not share any data provided by the client to any
+                            third party. Data will only be used for analysis and improvement of 
+                            BEAR Software Group's products.
+                            
+                            BEAR Software Group does not permit the sale or reproduction of any 
+                            applications.
+                            
+                            BEAR Software group does not permit the use of any applications by anyone
+                            other than the registered user. 
+                            
+                            The user may not sell or distribute data without the express written consent 
+                            of BEAR Software Group.
+                            
+                            Bear Software Group will not be held legally or otherwise responsible or
+                            liable for any data breaches, zero-day attacks, database worms, or any 
+                            other malicious attack that compromises the users data security.
+
+                            Bear Software Group will not be held responsible for unsafe storing or usage of the password provided which could lead to non-staff based entering of the program.
+
+                            Bear Software Group will not be held accountable for the users actions in the case of selling alchol to minors, unsanitary establishment practices, or selling unsafe alcholic and nonalcholic beverages.
+                            
+                            BEAR Software Group takes great care in insuring user's data security.
+                            BEAR Software Group performs regular vulnerability assessments, and requires
+                            the same from all key vendors and contibutors. 
+                            
+                            BEAR Software Group is constantly changing its approach to security as the
+                            security landscape is rapidly evolving. Every effort is made to stay on the
+                            cutting edge of data security.
+                         </p>
+
+                            <a href = "project2.html"><button class = "button"> I Disagree to the Terms and Conditions specified above </button></a>
+                            <p> </p>
+
+                            <a href = "Main exe and app files.zip"><button class = "button">I Agree to the Terms and Condutions specified above</button></a>
+                    </div>
+                </div>
+        </div>
+                  
+               </div> 
+
+                </div>
+    </main>
+
+
+    <!--Script for Modal-->
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function(){
+            modal.style.display = "block";
+        }
+        span.onclick = function(){
+            modal.style.display = "none";
+        }
+        window.onclick = function(event){
+            if(event.target == modal){
+                modal.style.display = "none";
+            }
+        }
+    
     </main>
 
 
