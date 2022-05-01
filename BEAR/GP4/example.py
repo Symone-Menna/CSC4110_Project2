@@ -5,12 +5,37 @@ License: MIT license
 Source: https://github.com/rdbende/ttk-widget-factory
 """
 
-
+import sys
 import tkinter as tk
 from tkinter import ttk
+from tkinter.scrolledtext import ScrolledText
+class PrintLogger(object):  # create file like object
+
+    def __init__(self, textbox):  # pass reference to text widget
+        self.textbox = textbox  # keep ref
+
+    def write(self, text):
+        self.textbox.configure(state="normal")  # make field editable
+        self.textbox.insert("end", text)  # write text to textbox
+        self.textbox.see("end")  # scroll to end
+        self.textbox.configure(state="disabled")  # make field readonly
+
+    def flush(self):  # needed for file like object
+        pass
 
 
 class App(ttk.Frame):
+    def reset_logging(self):
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+
+    def test_print(self):
+        print("Am i working?")
+
+    def redirect_logging(self):
+        logger = PrintLogger(self.log_widget)
+        sys.stdout = logger
+        sys.stderr = logger
     def __init__(self, parent):
         ttk.Frame.__init__(self)
 
@@ -31,6 +56,11 @@ class App(ttk.Frame):
         self.var_3 = tk.IntVar(value=2)
         self.var_4 = tk.StringVar(value=self.option_menu_list[1])
         self.var_5 = tk.DoubleVar(value=75.0)
+
+        self.test_button = tk.Button(self, text="Test Print", command=self.test_print)
+        self.test_button.pack()
+        self.log_widget = ScrolledText(self, height=4, width=120, font=("consolas", "8", "normal"))
+        self.log_widget.pack()
 
         # Create widgets :)
         self.setup_widgets()

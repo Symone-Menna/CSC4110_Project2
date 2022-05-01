@@ -10,6 +10,7 @@ from PIL import Image
 from PIL import ImageTk
 import tkinter as tk
 from tkinter import ttk
+import random
 
 
 class Bar:
@@ -91,8 +92,24 @@ class Bar:
         print("Hello " + name)
         self.employee = name
 
-
-
+    def demoOrders(self):
+        drinkList = [1,2,3,4,5,6,7]
+        for x in range(50):
+            drink = random.choice(drinkList)
+            if drink == 1:
+                self.makeOrder("old_fashioned",self.old_fashioned)
+            if drink == 2:
+                self.makeOrder("margarita",self.margarita)
+            if drink == 3:
+                self.makeOrder("cosmo",self.cosmo)
+            if drink == 4:
+                self.makeOrder("negroni",self.negroni)
+            if drink == 5:
+                self.makeOrder("moscow_mule",self.moscow_mule)
+            if drink == 6:
+                self.makeOrder("martini",self.martini)
+            if drink == 7:
+                self.makeOrder("mojito",self.mojito)
 
 
 #tkinter main loop
@@ -144,6 +161,10 @@ def tkmain():
         #Make drink button
         mdb = ttk.Button(mainMenu,text="Make Drink", command = makeDrinkWindow, style="Accent.TButton").place(x=125, y=250)
 
+        demoButton = ttk.Button(mainMenu,text="Order Demo", command = demoOrders, style="Accent.TButton").place(x=125, y=300)
+
+        
+
         titleLabel = ttk.Label(
             mainMenu,
             text="Welcome",
@@ -155,90 +176,6 @@ def tkmain():
         leave = ttk.Button(mainMenu,text="Exit", command=Close)
         leave.place(x=125,y=400)
 
-
-
-
-    #funtion for add inventory window
-    def addInventoryWindow():
-        addInventory = tk.Toplevel(root)
-        addInventory.title("Add Inventory")
-        addInventory.geometry("600x500")
-        addInventory.maxsize(894, 670)
-        addInventory.minsize(350,500)
-        addInventory.iconbitmap("bearicon.ico")
-
-        #photo background
-        canvas = tk.Canvas(addInventory, width = 600, height = 500)
-        canvas.pack(fill = "both", expand = True)
-        #canvas.create_image(0,0, image = bg, anchor = "nw")
-
-        ingredientVal = tk.StringVar()
-        quantityVal = tk.StringVar()
-       
-
-        #create entry boxes
-        ingredient = ttk.Entry(addInventory, textvariable = ingredientVal)
-        quantity = ttk.Entry(addInventory, textvariable = quantityVal)
-        
-        canvas.create_window(250,100, window=ingredient)
-        canvas.create_window(250,150, window=quantity)
-       
-        #create labels
-        example = tk.Label(addInventory, text="Example Format",bg = "black", fg = "white")
-        canvas.create_window(367,65, window=example)
-        labelIngredient = tk.Label(addInventory, text="Ingredient",bg = "black", fg = "white")
-        canvas.create_window(130,100, window=labelIngredient)
-        ingredientEx = tk.Label(addInventory, text="whiskey",bg = "black", fg = "white")
-        canvas.create_window(360,100, window=ingredientEx)
-        labelQuantity = tk.Label(addInventory, text="Quantity",bg = "black", fg = "white")
-        canvas.create_window(130,150, window=labelQuantity)
-        quantityEx = tk.Label(addInventory, text="oz",bg = "black", fg = "white")
-        canvas.create_window(350,150, window=quantityEx)
-        
-
-        strIngredient = ingredientVal.get()
-        strQuantity = quantityVal.get()
-        
-
-        def submit():
-            strIngredient = ingredientVal.get()
-            strQuantity = quantityVal.get()
-            barObj.addInventory(strIngredient,int(strQuantity))
-            ingredientVal.set("")
-            quantityVal.set("")
-         
-
-        #submit button
-        submit = ttk.Button(addInventory, text = 'Submit', command=submit, style="Accent.TButton").place(x=250,y=175)
-        
-    #function to search data
-    def viewInventoryWindow():
-        viewInventory = tk.Toplevel(root)
-        viewInventory.title("Query Data")
-        viewInventory.geometry("300x300")
-        viewInventory.maxsize(894, 670)
-        viewInventory.minsize(350,500)
-        canvas = tk.Canvas(viewInventory, width = 500, height = 300)
-        canvas.pack(fill = "both", expand = True)
-        viewInventory.iconbitmap("bearicon.ico")
-
-        #photo background
-        #canvas.create_image(0,0, image = bg, anchor = "nw")
-
-
-        #create entry box with labels
-        labelView = tk.Label(viewInventory, text="Click to view inventory",bg = "black", fg = "white")
-        canvas.create_window(180,100, window=labelView)
-
-        def submit():
-            barObj.printInventory()
-      
-        #submit button
-        submit = ttk.Button(viewInventory, text = 'View inventory',style="Accent.TButton", command=submit).place(x=130,y=150)
-        
-        
-          
-        
     #import data window
     def makeDrinkWindow():
         fileValue = tk.StringVar()
@@ -375,6 +312,86 @@ def tkmain():
         labelMoj = tk.Label(makeDrink, text="Mojito",bg = "black", fg = "white")
         canvas.create_window(355,237, window=labelMoj)
 
+
+    #funtion for add inventory window
+    def addInventoryWindow():
+        addInventory = tk.Toplevel(root)
+        addInventory.title("Add Inventory")
+        addInventory.geometry("600x500")
+        addInventory.maxsize(894, 670)
+        addInventory.minsize(350,500)
+        addInventory.iconbitmap("bearicon.ico")
+
+        #photo background
+        canvas = tk.Canvas(addInventory, width = 600, height = 500)
+        canvas.pack(fill = "both", expand = True)
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
+
+        ingredientVal = tk.StringVar()
+        quantityVal = tk.StringVar()
+       
+
+        #create entry boxes
+        ingredient = ttk.Entry(addInventory, textvariable = ingredientVal)
+        quantity = ttk.Entry(addInventory, textvariable = quantityVal)
+        
+        canvas.create_window(250,100, window=ingredient)
+        canvas.create_window(250,150, window=quantity)
+       
+        #create labels
+        example = tk.Label(addInventory, text="Example Format",bg = "black", fg = "white")
+        canvas.create_window(367,65, window=example)
+        labelIngredient = tk.Label(addInventory, text="Ingredient",bg = "black", fg = "white")
+        canvas.create_window(130,100, window=labelIngredient)
+        ingredientEx = tk.Label(addInventory, text="whiskey",bg = "black", fg = "white")
+        canvas.create_window(360,100, window=ingredientEx)
+        labelQuantity = tk.Label(addInventory, text="Quantity",bg = "black", fg = "white")
+        canvas.create_window(130,150, window=labelQuantity)
+        quantityEx = tk.Label(addInventory, text="oz",bg = "black", fg = "white")
+        canvas.create_window(350,150, window=quantityEx)
+        
+
+        strIngredient = ingredientVal.get()
+        strQuantity = quantityVal.get()
+        
+
+        def submit():
+            strIngredient = ingredientVal.get()
+            strQuantity = quantityVal.get()
+            barObj.addInventory(strIngredient,int(strQuantity))
+            ingredientVal.set("")
+            quantityVal.set("")
+         
+
+        #submit button
+        submit = ttk.Button(addInventory, text = 'Submit', command=submit, style="Accent.TButton").place(x=250,y=175)
+        
+    #function to search data
+    def viewInventoryWindow():
+        viewInventory = tk.Toplevel(root)
+        viewInventory.title("Query Data")
+        viewInventory.geometry("300x300")
+        viewInventory.maxsize(894, 670)
+        viewInventory.minsize(350,500)
+        canvas = tk.Canvas(viewInventory, width = 500, height = 300)
+        canvas.pack(fill = "both", expand = True)
+        viewInventory.iconbitmap("bearicon.ico")
+
+        #photo background
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
+
+
+        #create entry box with labels
+        labelView = tk.Label(viewInventory, text="Click to view inventory",bg = "black", fg = "white")
+        canvas.create_window(180,100, window=labelView)
+
+        def submit():
+            barObj.printInventory()
+      
+        #submit button
+        submit = ttk.Button(viewInventory, text = 'View inventory',style="Accent.TButton", command=submit).place(x=130,y=150)
+    
+    
     #Function to Check if password is correct
     def checkPassword(strPassword, name):
         if strPassword == "JlAK7r%2Xvjb":
@@ -490,6 +507,8 @@ def tkmain():
     titleLabel.place(x=95, y=50)
 
     tk.mainloop()
+
+
 
 def main():
 

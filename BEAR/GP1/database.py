@@ -1,8 +1,11 @@
+from cgitb import grey
 import tkinter as tk
 from tkinter import *
 import pickle #Loads database into a file
 import re
 import os
+import tkinter as tk
+from tkinter import ttk
 
 class Entry:
         def __init__(self):  #Default constructor
@@ -178,14 +181,20 @@ def tkmain():
 
 
     #create tkinter window
-    root = Tk()
+    
+    root = tk.Tk()
+    #root.tk.call("source", "azure.tcl")
+    #root.tk.call("set_theme", "light")
+
+    root.tk.call('source', 'forest-light.tcl')
+    ttk.Style().theme_use('forest-light')
 
     #open window dimention
     root.geometry('350x500')
     root.maxsize(894, 670)
     root.minsize(350,500)
     root.title("BEAR Software Group")
-    #root.iconbitmap("bearicon.ico")
+    root.iconbitmap("bearicon.ico")
 
     #image background
     #bg = PhotoImage(file="background.png")
@@ -220,13 +229,13 @@ def tkmain():
         skillValue = tk.StringVar()
 
         #create entry boxes
-        name = tk.Entry(dataEntry, textvariable = nameValue)
-        position = tk.Entry(dataEntry, textvariable = posValue)
-        ssn = tk.Entry(dataEntry, textvariable = ssnValue)
-        address = tk.Entry(dataEntry, textvariable = addressValue)
-        email = tk.Entry(dataEntry, textvariable = emailValue)
-        phone = tk.Entry(dataEntry, textvariable = phoneValue)
-        skill = tk.Entry(dataEntry, textvariable = skillValue)
+        name = ttk.Entry(dataEntry, textvariable = nameValue)
+        position = ttk.Entry(dataEntry, textvariable = posValue)
+        ssn = ttk.Entry(dataEntry, textvariable = ssnValue)
+        address = ttk.Entry(dataEntry, textvariable = addressValue)
+        email = ttk.Entry(dataEntry, textvariable = emailValue)
+        phone = ttk.Entry(dataEntry, textvariable = phoneValue)
+        skill = ttk.Entry(dataEntry, textvariable = skillValue)
         canvas.create_window(250,100, window=name)
         canvas.create_window(250,150, window=position)
         canvas.create_window(250,200, window=ssn)
@@ -236,36 +245,36 @@ def tkmain():
         canvas.create_window(250,400, window=skill)
 
         #create labels
-        example = tk.Label(dataEntry, text="Example Format",bg = "black", fg = "white")
-        canvas.create_window(367,65, window=example)
-        labelName = tk.Label(dataEntry, text="Name",bg = "black", fg = "white")
-        canvas.create_window(150,100, window=labelName)
-        nameEx = tk.Label(dataEntry, text="Bruce Wayne",bg = "black", fg = "white")
-        canvas.create_window(360,100, window=nameEx)
-        labelPosition = tk.Label(dataEntry, text="Position",bg = "black", fg = "white")
-        canvas.create_window(150,150, window=labelPosition)
-        posEx = tk.Label(dataEntry, text="Batman",bg = "black", fg = "white")
-        canvas.create_window(350,150, window=posEx)
-        labelSSN = tk.Label(dataEntry, text="SSN",bg = "black", fg = "white")
-        canvas.create_window(150,200, window=labelSSN)
-        ssnEx = tk.Label(dataEntry, text="123-45-6789",bg = "black", fg = "white")
-        canvas.create_window(360,200, window=ssnEx)
-        labelAddress = tk.Label(dataEntry, text="Address",bg = "black", fg = "white")
-        canvas.create_window(150,250, window=labelAddress)
-        addressEx = tk.Label(dataEntry, text="380 S. San Rafael Dr Pasadena CA 91001",bg = "black", fg = "white")
-        canvas.create_window(433,250, window=addressEx)
-        labelEmail = tk.Label(dataEntry, text="Email",bg = "black", fg = "white")
-        canvas.create_window(150,300, window=labelEmail)
-        emailEx = tk.Label(dataEntry, text="NANANANANA@batman.com",bg = "black", fg = "white")
-        canvas.create_window(410,300, window=emailEx)
-        labelPhone = tk.Label(dataEntry, text="Phone Number",bg = "black", fg = "white")
-        canvas.create_window(130,350, window=labelPhone)
-        phoneEx = tk.Label(dataEntry, text="735-185-7301",bg = "black", fg = "white")
-        canvas.create_window(365,350, window=phoneEx)
-        labelSkill = tk.Label(dataEntry, text="Skill",bg = "black", fg = "white")
+        example = tk.Label(dataEntry, text="Example Format",bg = "white", fg = "black")
+        canvas.create_window(380,65, window=example)
+        labelName = tk.Label(dataEntry, text="Name",bg = "white", fg = "black")
+        canvas.create_window(140,100, window=labelName)
+        nameEx = tk.Label(dataEntry, text="Bruce Wayne",bg = "white", fg = "black")
+        canvas.create_window(380,100, window=nameEx)
+        labelPosition = tk.Label(dataEntry, text="Position",bg = "white", fg = "black")
+        canvas.create_window(140,150, window=labelPosition)
+        posEx = tk.Label(dataEntry, text="Batman",bg = "white", fg = "black")
+        canvas.create_window(370,150, window=posEx)
+        labelSSN = tk.Label(dataEntry, text="SSN",bg = "white", fg = "black")
+        canvas.create_window(140,200, window=labelSSN)
+        ssnEx = tk.Label(dataEntry, text="123-45-6789",bg = "white", fg = "black")
+        canvas.create_window(370,200, window=ssnEx)
+        labelAddress = tk.Label(dataEntry, text="Address",bg = "white", fg = "black")
+        canvas.create_window(140,250, window=labelAddress)
+        addressEx = tk.Label(dataEntry, text="380 S. San Rafael Dr Pasadena CA 91001",bg = "white", fg = "black")
+        canvas.create_window(450,250, window=addressEx)
+        labelEmail = tk.Label(dataEntry, text="Email",bg = "white", fg = "black")
+        canvas.create_window(140,300, window=labelEmail)
+        emailEx = tk.Label(dataEntry, text="NANANANANA@batman.com",bg = "white", fg = "black")
+        canvas.create_window(430,300, window=emailEx)
+        labelPhone = tk.Label(dataEntry, text="Phone Number",bg = "white", fg = "black")
+        canvas.create_window(120,350, window=labelPhone)
+        phoneEx = tk.Label(dataEntry, text="735-185-7301",bg = "white", fg = "black")
+        canvas.create_window(375,350, window=phoneEx)
+        labelSkill = tk.Label(dataEntry, text="Skill",bg = "white", fg = "black")
         canvas.create_window(150,400, window=labelSkill)
-        skillEx = tk.Label(dataEntry, text="Crime Fighting",bg = "black", fg = "white")
-        canvas.create_window(365,400, window=skillEx)
+        skillEx = tk.Label(dataEntry, text="Crime Fighting",bg = "white", fg = "black")
+        canvas.create_window(375,400, window=skillEx)
 
         strName = nameValue.get()
         strPosition = posValue.get()
@@ -293,7 +302,7 @@ def tkmain():
             skillValue.set("")
 
         #submit button
-        submit = Button(dataEntry, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=250,y=450)
+        submit = ttk.Button(dataEntry, text = 'Submit', command=submit,style="Accent.TButton").place(x=250,y=450)
         
     #function to search data
     def queryDataWindow():
@@ -307,27 +316,27 @@ def tkmain():
         queryData.iconbitmap("bearicon.ico")
 
         #photo background
-        canvas.create_image(0,0, image = bg, anchor = "nw")
+        #canvas.create_image(0,0, image = bg, anchor = "nw")
 
         keyValue = tk.StringVar()
         valueValue = tk.StringVar()
 
         #create entry box with labels
-        key = tk.Entry(queryData, textvariable = keyValue )
+        key = ttk.Entry(queryData, textvariable = keyValue )
         canvas.create_window(250,100, window=key)
-        labelKey = tk.Label(queryData, text="Key",bg = "black", fg = "white")
+        labelKey = tk.Label(queryData, text="Key",bg = "white", fg = "black")
         canvas.create_window(150,100, window=labelKey)
-        exampleKey = tk.Label(queryData, text="Skill",bg = "black", fg = "white")
+        exampleKey = tk.Label(queryData, text="\"Skill\"",bg = "white", fg = "black")
         canvas.create_window(350,100, window=exampleKey)
 
-        value = tk.Entry(queryData, textvariable = valueValue)
+        value = ttk.Entry(queryData, textvariable = valueValue)
         canvas.create_window(250,150, window=value)
-        labelValue = tk.Label(queryData, text="Value",bg = "black", fg = "white")
+        labelValue = tk.Label(queryData, text="Value",bg = "white", fg = "black")
         canvas.create_window(150,150, window=labelValue)
-        exampleValue = tk.Label(queryData, text="Torture",bg = "black", fg = "white")
-        canvas.create_window(350,150, window=exampleValue)
+        exampleValue = tk.Label(queryData, text="\"Torture\"",bg = "white", fg = "black")
+        canvas.create_window(355,150, window=exampleValue)
 
-        example = tk.Label(queryData, text="Example Format",bg = "black", fg = "white")
+        example = tk.Label(queryData, text="Example Format:",bg = "white", fg = "black")
         canvas.create_window(367,65, window=example)
 
 
@@ -341,7 +350,7 @@ def tkmain():
             valueValue.set("")
         
         #submit button
-        submit = Button(queryData, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=250,y=200)
+        submit = ttk.Button(queryData, text = 'Submit', command=submit,style="Accent.TButton").place(x=250,y=200)
           
         
     #import data window
@@ -350,22 +359,22 @@ def tkmain():
         importData = Toplevel(root)
         importData.title("Import Data")
         importData.geometry("500x300")
-        importData.maxsize(894, 670)
+        importData.maxsize(870, 500)
         importData.minsize(350,500)
         canvas = Canvas(importData, width = 500, height = 300)
         canvas.pack(fill = "both", expand = True)
-        #importData.iconbitmap("bearicon.ico")
+        importData.iconbitmap("bearicon.ico")
 
         #photo background
         #canvas.create_image(0,0, image = bg, anchor = "nw")
 
-        file = tk.Entry(importData, textvariable = fileValue)
+        file = ttk.Entry(importData, textvariable = fileValue)
         canvas.create_window(250,100, window=file)
-        labelFile = tk.Label(importData, text="File",bg = "black", fg = "white")
+        labelFile = tk.Label(importData, text="File",bg = "white", fg = "black")
         canvas.create_window(150,100, window=labelFile)
-        fileExample = tk.Label(importData, text="employeeInfov2.txt",bg = "black", fg = "white")
-        canvas.create_window(375,100, window=fileExample)
-        example = tk.Label(importData, text="Example Format",bg = "black", fg = "white")
+        fileExample = tk.Label(importData, text="employeeInfov2.txt",bg = "white", fg = "black")
+        canvas.create_window(390,100, window=fileExample)
+        example = tk.Label(importData, text="Example Format",bg = "white", fg = "black")
         canvas.create_window(367,65, window=example)
 
         strFile = fileValue.get()
@@ -375,21 +384,27 @@ def tkmain():
             fileValue.set("")
 
         print(strFile)
-        submit = Button(importData, text = 'Submit', command=submit,bd = '5',bg = "black", fg = "white").place(x=200,y=150)
+        submit = ttk.Button(importData, text = 'Submit', command=submit,style="Accent.TButton").place(x=200,y=150)
 
 
-
+    titleLabel = ttk.Label(
+            root,
+            text="BEAR Database",
+            justify="center",
+            font=("-size", 15, "-weight", "bold"),
+        )
+    titleLabel.place(x=100, y=75)
     #add data button
-    adb = Button(root, text = 'Add Data',command=dataEntryWindow, bd = '5',bg = "black", fg = "white").place(x=100,y=100)
+    adb = ttk.Button(root, text = 'Add Data',command=dataEntryWindow,style="Accent.TButton").place(x=125,y=150)
 
     #add query data button
-    qdb = Button(root, text = 'Query Data',command=queryDataWindow, bd = '5',bg = "black", fg = "white").place(x=100,y=200)
+    qdb = ttk.Button(root, text = 'Query Data',command=queryDataWindow, style="Accent.TButton").place(x=125,y=200)
 
     #add import data button
-    ipb = Button(root, text = 'Import Data',command=importDataWindow, bd = '5',bg = "black", fg = "white").place(x=100,y=150)
+    ipb = ttk.Button(root, text = 'Import Data',command=importDataWindow, style="Accent.TButton").place(x=125,y=250)
 
     #add reverse data button
-    rdb = Button(root, text = 'Reverse Data', command=dataObj.reverse_Data, bd = '5',bg = "black", fg = "white").place(x=100,y=250)
+    rdb = ttk.Button(root, text = 'Reverse Data', command=dataObj.reverse_Data, style="Accent.TButton").place(x=122,y=300)
 
 
 
