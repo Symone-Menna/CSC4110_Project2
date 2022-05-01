@@ -213,7 +213,7 @@ def tkmain():
         dataEntry.geometry("600x500")
         dataEntry.maxsize(894, 670)
         dataEntry.minsize(350,500)
-        #dataEntry.iconbitmap("bearicon.ico")
+        dataEntry.iconbitmap("bearicon.ico")
 
         #photo background
         canvas = tk.Canvas(dataEntry, width = 600, height = 500)
