@@ -11,6 +11,7 @@ from PIL import ImageTk
 import tkinter as tk
 from tkinter import ttk
 import random
+import pydoc
 
 
 class Bar:
@@ -22,7 +23,15 @@ class Bar:
     negroni = {'gin':1,'campari':1,'sweetVermouth':1}
     moscow_mule = {'vodka':2,'gingerBeer':6,'limeJuice':0.5}
     martini = {'vodka':3,'dryVermouth':0.5,'olive':2}
-    mojito = {'rum':2,'limeJuice':0.75,'simpleSyrup':0.5}    
+    mojito = {'rum':2,'limeJuice':0.75,'simpleSyrup':0.5} 
+    #added on menu
+    whiskey_sour = {'whiskey':2, 'lemonJuice':1, 'sugar':1}
+    french75 = {'gin':2, 'simpleSyrup':0.5, 'lemonJuice':0.5, 'champagne':4}
+    manhattan = {'whiskey': 2, 'sweetVermouth':1, 'angosturaBitters':2}
+    gimlet = {'gin':2, 'simpleSyrup': 0.75, 'limeJuice': 0.75}
+    sazerac = {'whiskey':2, 'simpleSyrup':0.5, 'peychaudBitters':2, 'absinthe':0.125}
+    vesper = {'gin':3, 'vodka':1, 'lilletBlanc':0.5}
+    mimosa = {'champagne':2.5, 'orangeJuice':2.5}
 
     #opens the json file and removes the quantity specified in recipe dictionary
     def removeInventory(self, recipe):
@@ -176,15 +185,13 @@ def tkmain():
         leave = ttk.Button(mainMenu,text="Exit", command=Close)
         leave.place(x=125,y=400)
 
-    #import data window
+    #makedrink window
     def makeDrinkWindow():
         fileValue = tk.StringVar()
         makeDrink = tk.Toplevel(root)
         makeDrink.title("Make Drink")
-        makeDrink.geometry("550x500")
-        makeDrink.maxsize(894, 670)
-        makeDrink.minsize(350,500)
-        canvas = tk.Canvas(makeDrink, width = 550, height = 300)
+        makeDrink.geometry("950x450")
+        canvas = tk.Canvas(makeDrink, width = 800, height = 800)
         canvas.pack(fill = "both", expand = True)
         makeDrink.iconbitmap("bearicon.ico")
 
@@ -256,10 +263,10 @@ def tkmain():
 
         negroni = tk.Button(makeDrink, image = negImage,command=lambda:orderNegroni(), bd = '5')
         negroni.photo = negImage
-        negroni.place(x=425,y=150)
+        negroni.place(x=425,y=50)
         #negroni label
         labelNeg = tk.Label(makeDrink, text="Negroni",bg = "black", fg = "white")
-        canvas.create_window(475,137, window=labelNeg)
+        canvas.create_window(480,37, window=labelNeg)
 
         #moscow mule image manipulation
         mule_dir = os.path.dirname(os.path.abspath(__file__))
@@ -311,6 +318,132 @@ def tkmain():
         #mojito label
         labelMoj = tk.Label(makeDrink, text="Mojito",bg = "black", fg = "white")
         canvas.create_window(355,237, window=labelMoj)
+
+        #whisky sour image manipulation
+        ws_dir = os.path.dirname(os.path.abspath(__file__))
+        ws = Image.open(os.path.join(ws_dir,"img/whiskey_sour.jpg"))
+        wsResize = ws.resize((size))
+        wsImage = ImageTk.PhotoImage(wsResize)
+
+        #function to order whiskey sour
+        def orderWS():
+            barObj.makeOrder("whiskey_sour",barObj.whiskey_sour)
+
+        whiskey_sour = tk.Button(makeDrink, image=wsImage,command=lambda:orderWS(), bd = '5')
+        whiskey_sour.photo = wsImage
+        whiskey_sour.place(x=550,y=50)
+        #whiskey sour label
+        labelWS = tk.Label(makeDrink, text="Whiskey Sour",bg = "black", fg = "white")
+        canvas.create_window(607,37, window=labelWS)
+
+
+        #french75 image manipulation
+        french_dir = os.path.dirname(os.path.abspath(__file__))
+        french = Image.open(os.path.join(french_dir,"img/french75.jpg"))
+        frenchResize = french.resize((size))
+        frenchImage = ImageTk.PhotoImage(frenchResize)
+
+        #function to order french75
+        def orderFrench():
+            barObj.makeOrder("french75",barObj.french75)
+
+        french = tk.Button(makeDrink, image=frenchImage,command=lambda:orderFrench(), bd = '5')
+        french.photo = frenchImage
+        french.place(x=675,y=50)
+        #french75 label
+        labelFrench = tk.Label(makeDrink, text="French 75",bg = "black", fg = "white")
+        canvas.create_window(730,37, window=labelFrench)
+
+
+        #manhattan image manipulation
+        manhattan_dir = os.path.dirname(os.path.abspath(__file__))
+        manhattan = Image.open(os.path.join(french_dir,"img/manhattan.jpg"))
+        manhattanResize = manhattan.resize((size))
+        manhattanImage = ImageTk.PhotoImage(manhattanResize)
+
+        #function to order manhattan
+        def orderManhattan():
+            barObj.makeOrder("manhattan",barObj.manhattan)
+
+        manhattan = tk.Button(makeDrink, image=manhattanImage,command=lambda:orderManhattan(), bd = '5')
+        manhattan.photo = manhattanImage
+        manhattan.place(x=800,y=50)
+        #manhattan label
+        labelManhattan = tk.Label(makeDrink, text="Manhattan",bg = "black", fg = "white")
+        canvas.create_window(855,37, window=labelManhattan)
+
+
+        #gimlet image manipulation
+        gimlet_dir = os.path.dirname(os.path.abspath(__file__))
+        gimlet = Image.open(os.path.join(french_dir,"img/gimlet.jpg"))
+        gimletResize = gimlet.resize((size))
+        gimletImage = ImageTk.PhotoImage(gimletResize)
+
+        #function to order gimlet
+        def orderGimlet():
+            barObj.makeOrder("gimlet",barObj.gimlet)
+
+        gimlet = tk.Button(makeDrink, image=gimletImage,command=lambda:orderGimlet(), bd = '5')
+        gimlet.photo = gimletImage
+        gimlet.place(x=425,y=250)
+        #gimlet label
+        labelGimlet = tk.Label(makeDrink, text="Gimlet",bg = "black", fg = "white")
+        canvas.create_window(480,237, window=labelGimlet)
+        
+
+        #sazerac image manipulation
+        sazerac_dir = os.path.dirname(os.path.abspath(__file__))
+        sazerac = Image.open(os.path.join(french_dir,"img/sazerac.jpg"))
+        sazeracResize = sazerac.resize((size))
+        sazeracImage = ImageTk.PhotoImage(sazeracResize)
+
+        #function to order sazerac
+        def orderSazerac():
+            barObj.makeOrder("sazerac",barObj.sazerac)
+
+        sazerac = tk.Button(makeDrink, image=sazeracImage,command=lambda:orderSazerac(), bd = '5')
+        sazerac.photo = sazeracImage
+        sazerac.place(x=550,y=250)
+        #sazerac label
+        labelSazerac = tk.Label(makeDrink, text="Sazerac",bg = "black", fg = "white")
+        canvas.create_window(605,237, window=labelSazerac)
+
+
+        #sazerac image manipulation
+        vesper_dir = os.path.dirname(os.path.abspath(__file__))
+        vesper = Image.open(os.path.join(french_dir,"img/vesper.jpg"))
+        vesperResize = vesper.resize((size))
+        vesperImage = ImageTk.PhotoImage(vesperResize)
+
+        #function to order sazerac
+        def orderVesper():
+            barObj.makeOrder("vesper",barObj.vesper)
+
+        vesper = tk.Button(makeDrink, image=vesperImage,command=lambda:orderVesper(), bd = '5')
+        vesper.photo = vesperImage
+        vesper.place(x=675,y=250)
+        #sazerac label
+        labelVesper = tk.Label(makeDrink, text="Vesper",bg = "black", fg = "white")
+        canvas.create_window(730,237, window=labelVesper)
+
+
+        #mimosa image manipulation
+        mimosa_dir = os.path.dirname(os.path.abspath(__file__))
+        mimosa = Image.open(os.path.join(french_dir,"img/mimosa.jpg"))
+        mimosaResize = mimosa.resize((size))
+        mimosaImage = ImageTk.PhotoImage(mimosaResize)
+
+        #function to order mimosa
+        def orderMimosa():
+            barObj.makeOrder("mimosa",barObj.mimosa)
+
+        mimosa = tk.Button(makeDrink, image=mimosaImage,command=lambda:orderMimosa(), bd = '5')
+        mimosa.photo = mimosaImage
+        mimosa.place(x=800,y=250)
+        #mimosa label
+        labelMimosa = tk.Label(makeDrink, text="Mimosa",bg = "black", fg = "white")
+        canvas.create_window(850,237, window=labelMimosa)
+
 
 
     #funtion for add inventory window

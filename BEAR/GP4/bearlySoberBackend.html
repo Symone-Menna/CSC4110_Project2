@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module bearlySoberBackend</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>bearlySoberBackend</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Clordz%5Cdocuments%5Cwinter%202022%5Ccsc%204110%5Cgroup%20projects%5Cgroup_project%5Cbearlysoberbackend.py">c:\users\lordz\documents\winter 2022\csc 4110\group projects\group_project\bearlysoberbackend.py</a></font></td></tr></table>
+    <p><tt>##BEGIN&nbsp;CODE</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="PIL.Image.html">PIL.Image</a><br>
+<a href="PIL.ImageTk.html">PIL.ImageTk</a><br>
+<a href="PIL.html">PIL</a><br>
+</td><td width="25%" valign=top><a href="csv.html">csv</a><br>
+<a href="json.html">json</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="random.html">random</a><br>
+<a href="re.html">re</a><br>
+<a href="tkinter.html">tkinter</a><br>
+</td><td width="25%" valign=top><a href="tkinter.ttk.html">tkinter.ttk</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="bearlySoberBackend.html#Bar">Bar</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Bar">class <strong>Bar</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Bar-addInventory"><strong>addInventory</strong></a>(self, key, value)</dt><dd><tt>#&nbsp;opens&nbsp;the&nbsp;json&nbsp;file&nbsp;and&nbsp;adds&nbsp;the&nbsp;value&nbsp;parameter&nbsp;to&nbsp;the&nbsp;json&nbsp;entry&nbsp;with&nbsp;the&nbsp;specified&nbsp;key&nbsp;pair</tt></dd></dl>
+
+<dl><dt><a name="Bar-checkInventory"><strong>checkInventory</strong></a>(self, recipe)</dt><dd><tt>#checks&nbsp;the&nbsp;inventory&nbsp;and&nbsp;prints&nbsp;to&nbsp;the&nbsp;console&nbsp;with&nbsp;messages&nbsp;currently</tt></dd></dl>
+
+<dl><dt><a name="Bar-demoOrders"><strong>demoOrders</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Bar-filterEntry"><strong>filterEntry</strong></a>(s)</dt></dl>
+
+<dl><dt><a name="Bar-logOn"><strong>logOn</strong></a>(self, name)</dt><dd><tt>#&nbsp;trigger&nbsp;off&nbsp;of&nbsp;tkinter&nbsp;button&nbsp;before&nbsp;orders&nbsp;are&nbsp;placed&nbsp;to&nbsp;maintain&nbsp;an&nbsp;open&nbsp;session&nbsp;for&nbsp;the&nbsp;selected&nbsp;server</tt></dd></dl>
+
+<dl><dt><a name="Bar-logOrder"><strong>logOrder</strong></a>(self, drink, drinkDict)</dt><dd><tt>#&nbsp;interacts&nbsp;with&nbsp;the&nbsp;csv&nbsp;file&nbsp;to&nbsp;track&nbsp;server,&nbsp;time,&nbsp;and&nbsp;order&nbsp;that&nbsp;was&nbsp;placed</tt></dd></dl>
+
+<dl><dt><a name="Bar-makeOrder"><strong>makeOrder</strong></a>(self, drink, drinkDict)</dt><dd><tt>#&nbsp;pass&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;drink&nbsp;to&nbsp;the&nbsp;function&nbsp;as&nbsp;a&nbsp;string,&nbsp;and&nbsp;the&nbsp;<a href="#Bar">Bar</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;dictionary&nbsp;with&nbsp;the&nbsp;same&nbsp;key.</tt></dd></dl>
+
+<dl><dt><a name="Bar-printInventory"><strong>printInventory</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Bar-removeInventory"><strong>removeInventory</strong></a>(self, recipe)</dt><dd><tt>#opens&nbsp;the&nbsp;json&nbsp;file&nbsp;and&nbsp;removes&nbsp;the&nbsp;quantity&nbsp;specified&nbsp;in&nbsp;recipe&nbsp;dictionary</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>cosmo</strong> = {'campari': 1, 'gin': 1, 'sweetVermouth': 1}</dl>
+
+<dl><dt><strong>employee</strong> = ''</dl>
+
+<dl><dt><strong>french75</strong> = {'champagne': 4, 'gin': 2, 'lemonJuice': 0.5, 'simpleSyrup': 0.5}</dl>
+
+<dl><dt><strong>gimlet</strong> = {'gin': 2, 'limeJuice': 0.75, 'simpleSyrup': 0.75}</dl>
+
+<dl><dt><strong>manhattan</strong> = {'angosturaBitters': 2, 'sweetVermouth': 1, 'whiskey': 2}</dl>
+
+<dl><dt><strong>margarita</strong> = {'cointreau': 1, 'limeJuice': 1, 'tequila': 2}</dl>
+
+<dl><dt><strong>martini</strong> = {'dryVermouth': 0.5, 'olive': 2, 'vodka': 3}</dl>
+
+<dl><dt><strong>mimosa</strong> = {'champagne': 2.5, 'orangeJuice': 2.5}</dl>
+
+<dl><dt><strong>mojito</strong> = {'limeJuice': 0.75, 'rum': 2, 'simpleSyrup': 0.5}</dl>
+
+<dl><dt><strong>moscow_mule</strong> = {'gingerBeer': 6, 'limeJuice': 0.5, 'vodka': 2}</dl>
+
+<dl><dt><strong>negroni</strong> = {'campari': 1, 'gin': 1, 'sweetVermouth': 1}</dl>
+
+<dl><dt><strong>old_fashioned</strong> = {'bitters': 0.1, 'orangeTwist': 1, 'sugarCube': 1, 'whiskey': 2}</dl>
+
+<dl><dt><strong>sazerac</strong> = {'absinthe': 0.125, 'peychaudBitters': 2, 'simpleSyrup': 0.5, 'whiskey': 2}</dl>
+
+<dl><dt><strong>vesper</strong> = {'gin': 3, 'lilletBlanc': 0.5, 'vodka': 1}</dl>
+
+<dl><dt><strong>whiskey_sour</strong> = {'lemonJuice': 1, 'sugar': 1, 'whiskey': 2}</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-main"><strong>main</strong></a>()</dt></dl>
+ <dl><dt><a name="-tkmain"><strong>tkmain</strong></a>()</dt><dd><tt>#tkinter&nbsp;main&nbsp;loop</tt></dd></dl>
+</td></tr></table>
+</body></html>
