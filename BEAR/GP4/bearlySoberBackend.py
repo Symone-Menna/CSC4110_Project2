@@ -170,7 +170,7 @@ def tkmain():
         #Make drink button
         mdb = ttk.Button(mainMenu,text="Make Drink", command = makeDrinkWindow, style="Accent.TButton").place(x=125, y=250)
 
-        demoButton = ttk.Button(mainMenu,text="Order Demo", command = demoOrders, style="Accent.TButton").place(x=125, y=300)
+        #demoButton = ttk.Button(mainMenu,text="Order Demo", command = demoOrders, style="Accent.TButton").place(x=125, y=300)
         #Needs tweaking/fixing
         
 
