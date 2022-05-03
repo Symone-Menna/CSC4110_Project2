@@ -101,10 +101,11 @@ class Bar:
         print("Hello " + name)
         self.employee = name
 
+    #This function is to simulate a large amount of orders being placed (50), akin to a real restaurant/bar
     def demoOrders(self):
-        drinkList = [1,2,3,4,5,6,7]
+        drinkList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
         for x in range(50):
-            drink = random.choice(drinkList)
+            drink = random.choice(drinkList) #Picks a random drink to order
             if drink == 1:
                 self.makeOrder("old_fashioned",self.old_fashioned)
             if drink == 2:
@@ -119,6 +120,20 @@ class Bar:
                 self.makeOrder("martini",self.martini)
             if drink == 7:
                 self.makeOrder("mojito",self.mojito)
+            if drink == 8:
+                self.makeOrder("whiskey_sour",self.whiskey_sour)
+            if drink == 9:
+                self.makeOrder("french75",self.french75)
+            if drink == 10:
+                self.makeOrder("manhattan",self.manhattan)
+            if drink == 11:
+                self.makeOrder("gimlet",self.gimlet)
+            if drink == 12:
+                self.makeOrder("sazerac",self.sazerac)
+            if drink == 13:
+                self.makeOrder("vesper",self.vesper)
+            if drink == 14:
+                self.makeOrder("mimosa",self.mimosa)
 
 
 #tkinter main loop
@@ -170,8 +185,9 @@ def tkmain():
         #Make drink button
         mdb = ttk.Button(mainMenu,text="Make Drink", command = makeDrinkWindow, style="Accent.TButton").place(x=125, y=250)
 
-        #demoButton = ttk.Button(mainMenu,text="Order Demo", command = demoOrders, style="Accent.TButton").place(x=125, y=300)
-        #Needs tweaking/fixing
+        #drink demo button
+        demoButton = ttk.Button(mainMenu,text="Order Demo", command = barObj.demoOrders, style="Accent.TButton").place(x=125, y=300)
+        
         
 
         titleLabel = ttk.Label(
