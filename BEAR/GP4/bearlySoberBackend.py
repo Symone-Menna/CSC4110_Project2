@@ -56,7 +56,7 @@ class Bar:
         with open("inventory.json", 'r') as file:
             inventory = json.load(file)
         inventory[key] = inventory[key] + value
-        print(key +" added to inventory")
+        print("\n",key ," added to inventory")
         with open("inventory.json", "w") as file:
             file.write(json.dumps(inventory, indent = 4))
 
@@ -71,6 +71,7 @@ class Bar:
         with open("inventory.json", 'r') as file:
             inventory = json.load(file)
         keys = dict.keys(inventory)
+        print("\nCurrent inventory: ")
         for item in keys:
             print(str(item) + ":" + str(inventory[item]))
 
@@ -81,10 +82,10 @@ class Bar:
             inventory = json.load(file)
         for i in recipe.keys():
             if inventory[i] < recipe[i]:
-                print("Insufficient inventory available!")
+                print("\nInsufficient inventory available!")
                 return False
             elif inventory[i] < 6 * recipe[i]:
-                print("Low inventory, replenish soon")
+                print("\nLow inventory, replenish soon")
         return True
 
     # pass the name of the drink to the function as a string, and the Bar object dictionary with the same key.
@@ -92,13 +93,13 @@ class Bar:
         if self.checkInventory(drinkDict):
             self.logOrder(drink,drinkDict)
             self.removeInventory(drinkDict)
-            print(drink + " order made")
+            print("\n", drink, " order made")
             return True
         return False
 
     # trigger off of tkinter button before orders are placed to maintain an open session for the selected server
     def logOn(self,name): 
-        print("Hello " + name)
+        print("\nHello " + name)
         self.employee = name
 
     #This function is to simulate a large amount of orders being placed (50), akin to a real restaurant/bar
@@ -216,7 +217,7 @@ def tkmain():
 
         #old fashioned image and resizing 
         of_dir = os.path.dirname(os.path.abspath(__file__))
-        of = Image.open(os.path.join(of_dir,"img/old_fashioned.jpg"))
+        of = Image.open("img/old_fashioned.jpg")
         width,height = of.size
         new_width = width//10
         new_height = height//10
@@ -237,7 +238,7 @@ def tkmain():
         
         #margarita image manipulation
         mar_dir = os.path.dirname(os.path.abspath(__file__))
-        mar = Image.open(os.path.join(mar_dir,"img/margarita.jpg"))
+        mar = Image.open("img/margarita.jpg")
         marResize = mar.resize((size))
         marImage = ImageTk.PhotoImage(marResize)
 
@@ -253,7 +254,7 @@ def tkmain():
 
         #cosmo image manipulation
         cos_dir = os.path.dirname(os.path.abspath(__file__))
-        cos = Image.open(os.path.join(cos_dir,"img/cosmo.jpg"))
+        cos = Image.open("img/cosmo.jpg")
         cosResize = cos.resize((size))
         cosImage = ImageTk.PhotoImage(cosResize)
 
@@ -269,7 +270,7 @@ def tkmain():
 
         #negroni image manipulation
         neg_dir = os.path.dirname(os.path.abspath(__file__))
-        neg = Image.open(os.path.join(neg_dir,"img/negroni.jpg"))
+        neg = Image.open("img/negroni.jpg")
         negResize = neg.resize((size))
         negImage = ImageTk.PhotoImage(negResize)
 
@@ -286,7 +287,7 @@ def tkmain():
 
         #moscow mule image manipulation
         mule_dir = os.path.dirname(os.path.abspath(__file__))
-        neg = Image.open(os.path.join(mule_dir,"img/moscow_mule.jpg"))
+        neg = Image.open("img/moscow_mule.jpg")
         muleResize = neg.resize((size))
         muleImage = ImageTk.PhotoImage(muleResize)
 
@@ -303,7 +304,7 @@ def tkmain():
 
         #martini image manipulation
         tini_dir = os.path.dirname(os.path.abspath(__file__))
-        neg = Image.open(os.path.join(tini_dir,"img/martini.jpg"))
+        neg = Image.open("img/martini.jpg")
         tiniResize = neg.resize((size))
         tiniImage = ImageTk.PhotoImage(tiniResize)
 
@@ -320,7 +321,7 @@ def tkmain():
         
         #mojito image manipulation
         moj_dir = os.path.dirname(os.path.abspath(__file__))
-        moj = Image.open(os.path.join(moj_dir,"img/mojito.jpg"))
+        moj = Image.open("img/mojito.jpg")
         mojResize = moj.resize((size))
         mojImage = ImageTk.PhotoImage(mojResize)
 
@@ -337,7 +338,7 @@ def tkmain():
 
         #whisky sour image manipulation
         ws_dir = os.path.dirname(os.path.abspath(__file__))
-        ws = Image.open(os.path.join(ws_dir,"img/whiskey_sour.jpg"))
+        ws = Image.open("img/whiskey_sour.jpg")
         wsResize = ws.resize((size))
         wsImage = ImageTk.PhotoImage(wsResize)
 
@@ -355,7 +356,7 @@ def tkmain():
 
         #french75 image manipulation
         french_dir = os.path.dirname(os.path.abspath(__file__))
-        french = Image.open(os.path.join(french_dir,"img/french75.jpg"))
+        french = Image.open("img/french75.jpg")
         frenchResize = french.resize((size))
         frenchImage = ImageTk.PhotoImage(frenchResize)
 
@@ -373,7 +374,7 @@ def tkmain():
 
         #manhattan image manipulation
         manhattan_dir = os.path.dirname(os.path.abspath(__file__))
-        manhattan = Image.open(os.path.join(french_dir,"img/manhattan.jpg"))
+        manhattan = Image.open("img/manhattan.jpg")
         manhattanResize = manhattan.resize((size))
         manhattanImage = ImageTk.PhotoImage(manhattanResize)
 
@@ -391,7 +392,7 @@ def tkmain():
 
         #gimlet image manipulation
         gimlet_dir = os.path.dirname(os.path.abspath(__file__))
-        gimlet = Image.open(os.path.join(french_dir,"img/gimlet.jpg"))
+        gimlet = Image.open("img/gimlet.jpg")
         gimletResize = gimlet.resize((size))
         gimletImage = ImageTk.PhotoImage(gimletResize)
 
@@ -409,7 +410,7 @@ def tkmain():
 
         #sazerac image manipulation
         sazerac_dir = os.path.dirname(os.path.abspath(__file__))
-        sazerac = Image.open(os.path.join(french_dir,"img/sazerac.jpg"))
+        sazerac = Image.open("img/sazerac.jpg")
         sazeracResize = sazerac.resize((size))
         sazeracImage = ImageTk.PhotoImage(sazeracResize)
 
@@ -427,7 +428,7 @@ def tkmain():
 
         #sazerac image manipulation
         vesper_dir = os.path.dirname(os.path.abspath(__file__))
-        vesper = Image.open(os.path.join(french_dir,"img/vesper.jpg"))
+        vesper = Image.open("img/vesper.jpg")
         vesperResize = vesper.resize((size))
         vesperImage = ImageTk.PhotoImage(vesperResize)
 
@@ -445,7 +446,7 @@ def tkmain():
 
         #mimosa image manipulation
         mimosa_dir = os.path.dirname(os.path.abspath(__file__))
-        mimosa = Image.open(os.path.join(french_dir,"img/mimosa.jpg"))
+        mimosa = Image.open("img/mimosa.jpg")
         mimosaResize = mimosa.resize((size))
         mimosaImage = ImageTk.PhotoImage(mimosaResize)
 
